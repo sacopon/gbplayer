@@ -1,10 +1,15 @@
 export const UINT8_MIN = 0;
 export const UINT8_MAX = 255;
 
+export interface Register8bit {
+  get value(): number;
+  set value(v: number);
+}
+
 /**
  * 8bit レジスタ
  */
- export class Register8bit {
+ export class General8bitRegister implements Register8bit {
   private _value: number;
 
   constructor() {
@@ -15,7 +20,7 @@ export const UINT8_MAX = 255;
     return this._value;
   }
 
-  set value(v) {
+  set value(v: number) {
     if (v < UINT8_MIN || UINT8_MAX < v) {
       throw new Error("invalid argument");
     }

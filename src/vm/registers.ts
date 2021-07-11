@@ -1,35 +1,63 @@
-import { Register16bit } from "./register_16bit";
+import { FlagRegister } from "./flag_register";
+import { Register16bit, General16bitRegister } from "./register_16bit";
+import { RegisterAF } from "./register_af";
 
 /**
  * レジスタ
  */
 export class Registers {
-  // private _AF: Register16bit;
+  private _AF: RegisterAF;
   private _BC: Register16bit;
   private _DE: Register16bit;
   private _HL: Register16bit;
   // private _stackPointer: number;
   // private _programCounter: number;
-  // private _zeroFlag: boolean;
-  // private _subtractFlag: boolean;
-  // private _halfCarryFlag: boolean;
-  // private _carryFlag: boolean;
 
   constructor() {
-    this._BC = new Register16bit();
-    this._DE = new Register16bit();
-    this._HL = new Register16bit();
-    // this._A = 0;
-    // this._F = 0;
+    this._AF = new RegisterAF();
+    this._BC = new General16bitRegister();
+    this._DE = new General16bitRegister();
+    this._HL = new General16bitRegister();
     // this._stackPointer = 0;
     // this._programCounter = 0;
-    // this._zeroFlag = false;
-    // this._subtractFlag = false;
-    // this._halfCarryFlag = false;
-    // this._carryFlag = false;
+  }
+
+  /**
+   * フラグレジスタ
+   */
+   get flag(): FlagRegister {
+    return this._AF.flag;
   }
 
 // 8bit アクセス
+  /**
+   * A レジスタ（AFレジスタの上位8bit）
+   */
+  public get A() {
+    return this._AF.hi;
+  }
+
+  /**
+   * A レジスタ（AFレジスタの上位8bit）
+   */
+   public set A(value: number) {
+    this._AF.hi = value;
+  }
+
+  /**
+   * F レジスタ（AFレジスタの上位8bit）
+   */
+   public get F() {
+    return this._AF.lo;
+  }
+
+  /**
+   * F レジスタ（AFレジスタの上位8bit）
+   */
+   public set F(value: number) {
+    this._AF.lo = value;
+  }
+
   /**
    * B レジスタ（BCレジスタの上位8bit）
    */
@@ -40,7 +68,7 @@ export class Registers {
   /**
    * B レジスタ（BCレジスタの上位8bit）
    */
-   public set B(value) {
+   public set B(value: number) {
      this._BC.hi = value;
   }
 
@@ -54,7 +82,7 @@ export class Registers {
   /**
    * C レジスタ（BCレジスタの下位8bit）
    */
-   public set C(value) {
+   public set C(value: number) {
      this._BC.lo = value;
   }
 
@@ -68,7 +96,7 @@ export class Registers {
   /**
    * D レジスタ（DEレジスタの上位8bit）
    */
-   public set D(value) {
+   public set D(value: number) {
      this._DE.hi = value;
   }
 
@@ -82,7 +110,7 @@ export class Registers {
   /**
    * E レジスタ（DEレジスタの下位8bit）
    */
-   public set E(value) {
+   public set E(value: number) {
      this._DE.lo = value;
   }
 
@@ -96,7 +124,7 @@ export class Registers {
   /**
    * H レジスタ（HLレジスタの上位8bit）
    */
-   public set H(value) {
+   public set H(value: number) {
      this._HL.hi = value;
   }
 
@@ -110,59 +138,25 @@ export class Registers {
   /**
    * L レジスタ（HLレジスタの下位8bit）
    */
-   public set L(value) {
+   public set L(value: number) {
      this._HL.lo = value;
   }
 
-  // /** フラグレジスタ */
-  // get F() {
-  //   // TODO: 未実装
-  //   return 0;
-  // }
-
-//   /**
-//    * B レジスタ（BCレジスタの上位8bit） 
-//    */
-//   get B() {
-//     return this._B;
-//   }
-
-//   /**
-//    * C レジスタ（BCレジスタの下位8bit）
-//    */
-//   get C() {
-//     return this._C;
-//   }
-
-//   /**
-//    * D レジスタ（DEレジスタの上位8bit）
-//    */
-//   get D() {
-//     return this.D;
-//   }
-
-//   /**
-//    * E レジスタ（DEレジスタの下位8bit）
-//    */
-//   get E() {
-//     return this._E;
-//   }
-
-//   /**
-//    * H レジスタ（HLレジスタの上位8bit）
-//    */
-//   get H() {
-//     return this._H;
-//   }
-
-//   /**
-//    * L レジスタ（HLレジスタの下位8bit）
-//    */
-//   get L() {
-//     return this._L;
-//   }
-
 // 16bit アクセス
+  /**
+   * AF レジスタ（16bit）
+   */
+   get AF() {
+    return this._AF.value;
+  }
+
+  /**
+   * AF レジスタ（16bit）
+   */
+   set AF(value: number) {
+    this._AF.value = value;
+  }
+
   /**
    * BC レジスタ（16bit）
    */
@@ -173,7 +167,7 @@ export class Registers {
   /**
    * BC レジスタ（16bit）
    */
-   set BC(value) {
+   set BC(value: number) {
     this._BC.value = value;
   }
 
@@ -187,7 +181,7 @@ export class Registers {
   /**
    * BC レジスタ（16bit）
    */
-   set DE(value) {
+   set DE(value: number) {
     this._DE.value = value;
   }
 
@@ -201,7 +195,7 @@ export class Registers {
   /**
    * HL レジスタ（16bit）
    */
-   set HL(value) {
+   set HL(value: number) {
     this._HL.value = value;
   }
 
@@ -216,34 +210,4 @@ export class Registers {
 //     * 次に実行する命令のアドレスを保持する
 //     */
 //    get PC(): number;
- 
-// // フラグレジスタ
-//   /**
-//    * ゼロフラグ
-//    * 演算結果が0であることを示す
-//    * 演算結果が0の場合に1となり、それ以外の場合は0となる
-//    */
-//   get ZF(): number;
-
-//   /**
-//    * サブトラクトフラグ
-//    * 直前に実行された命令が減算命令であったことを示す
-//    * 減算命令であった場合に1となり、加算命令であった場合は0となる
-//    */
-//   get NF(): number;
-
-//   /**
-//    * ハーフキャリーフラグ
-//    * 演算の結果、下位4ビットから上位4ビットに対して、キャリー（桁上がり）またはボロー（桁下がり）があったことを示す
-//    * 下位4ビットからのキャリーまたはボローがあった場合に1となり、そうでない場合は0となる
-//    */
-//   get HF(): number;
-
-//   /**
-//    * キャリーフラグ
-//    * 加減算の結果、キャリーまたはボローがあったことを示す
-//    * キャリーまたは、ボローがあった場合に1となり、そうでい場合は0となる
-//    * また、ビットシフト/ローテート命令で、最上位または最下位ビットからあふれたビットをキャリーとして扱う
-//    */
-//   get CF(): number;
 }
