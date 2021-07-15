@@ -12,7 +12,7 @@ export class Registers {
   private _DE: Register16bit;
   private _HL: Register16bit;
   private _PC: ProgramCounter;
-  // private _stackPointer: number;
+  // private _SP: StackPointer;
 
   constructor() {
     this._AF = new RegisterAF();
@@ -20,8 +20,22 @@ export class Registers {
     this._DE = new General16bitRegister();
     this._HL = new General16bitRegister();
     this._PC = new ProgramCounter();
-    // this._stackPointer = 0;
-    // this._programCounter = 0;
+    // this._SP = new StackPointer();
+  }
+
+  /**
+   * デバッグ用
+   */
+  public clone() {
+    const registers = new Registers();
+    registers.AF = this.AF;
+    registers.BC = this.BC;
+    registers.DE = this.DE;
+    registers.HL = this.HL;
+    registers.PC = this.PC;
+    // registers.SP = this.SP;
+
+    return registers;
   }
 
   /**
@@ -220,10 +234,4 @@ export class Registers {
 //    * メモリ上のスタックエリアの位置を示す
 //    */
 //    get SP(): number;
-
-//    /**
-//     * プログラムカウンタ(16bit)
-//     * 次に実行する命令のアドレスを保持する
-//     */
-//    get PC(): number;
 }
