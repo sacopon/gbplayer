@@ -1,4 +1,5 @@
 import { FlagRegister } from "./flag_register";
+import { ProgramCounter } from "./program_counter";
 import { Register16bit, General16bitRegister } from "./register_16bit";
 import { RegisterAF } from "./register_af";
 
@@ -10,14 +11,15 @@ export class Registers {
   private _BC: Register16bit;
   private _DE: Register16bit;
   private _HL: Register16bit;
+  private _PC: ProgramCounter;
   // private _stackPointer: number;
-  // private _programCounter: number;
 
   constructor() {
     this._AF = new RegisterAF();
     this._BC = new General16bitRegister();
     this._DE = new General16bitRegister();
     this._HL = new General16bitRegister();
+    this._PC = new ProgramCounter();
     // this._stackPointer = 0;
     // this._programCounter = 0;
   }
@@ -197,6 +199,20 @@ export class Registers {
    */
    set HL(value: number) {
     this._HL.value = value;
+  }
+
+  /**
+   * プログラムカウンタ（16bit）
+   */
+   get PC() {
+    return this._PC.value;
+  }
+
+  /**
+   * プログラムカウンタ（16bit）
+   */
+   set PC(value: number) {
+    this._PC.value = value;
   }
 
 //   /**
