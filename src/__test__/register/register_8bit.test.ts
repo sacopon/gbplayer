@@ -1,10 +1,10 @@
-import { Register8bit, General8bitRegister } from "vm/register_8bit";
+import { Register, Register8bit } from "vm/register/register_8bit";
 
 describe("Register8bit test", () => {
-  let reg: Register8bit;
+  let reg: Register;
 
   beforeEach(() => {
-    reg = new General8bitRegister();
+    reg = new Register8bit();
   })
 
   test("constructor", () => {
@@ -12,20 +12,20 @@ describe("Register8bit test", () => {
   });
 
   test("change valid value(under signed 8bit)", () => {
-    reg.value = 100;
+    reg = new Register8bit(100);
     expect(reg.value).toBe(100);
   });
 
   test("change valid value(under unsigned 8bit)", () => {
-    reg.value = 200;
+    reg = new Register8bit(200);
     expect(reg.value).toBe(200);
   });
 
   test("change value(over unsigned 8bit value)", () => {
-    expect(() => { reg.value = 65535; }).toThrow();
+    expect(() => { reg = new Register8bit(65535); }).toThrow();
   });
 
   test("change value(minous value)", () => {
-    expect(() => { reg.value = -100; }).toThrow();
+    expect(() => { reg = new Register8bit(-100); }).toThrow();
   });
 });

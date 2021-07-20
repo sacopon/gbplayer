@@ -19,7 +19,7 @@ export class Registers {
     this._BC = new General16bitRegister();
     this._DE = new General16bitRegister();
     this._HL = new General16bitRegister();
-    this._PC = new ProgramCounter();
+    this._PC = new ProgramCounter(0); // TODO: 現状ではテストしやすいように0を指定しておく
     // this._SP = new StackPointer();
   }
 
@@ -170,7 +170,7 @@ export class Registers {
    * AF レジスタ（16bit）
    */
    set AF(value: number) {
-    this._AF.value = value;
+    this._AF = new RegisterAF(value);
   }
 
   /**
@@ -184,7 +184,7 @@ export class Registers {
    * BC レジスタ（16bit）
    */
    set BC(value: number) {
-    this._BC.value = value;
+    this._BC = new General16bitRegister(value);
   }
 
   /**
@@ -198,7 +198,7 @@ export class Registers {
    * BC レジスタ（16bit）
    */
    set DE(value: number) {
-    this._DE.value = value;
+    this._DE = new General16bitRegister(value);
   }
 
   /**
@@ -212,7 +212,7 @@ export class Registers {
    * HL レジスタ（16bit）
    */
    set HL(value: number) {
-    this._HL.value = value;
+    this._HL = new General16bitRegister(value);
   }
 
   /**
@@ -226,7 +226,7 @@ export class Registers {
    * プログラムカウンタ（16bit）
    */
    set PC(value: number) {
-    this._PC.value = value;
+    this._PC = new ProgramCounter(value);
   }
 
 //   /**

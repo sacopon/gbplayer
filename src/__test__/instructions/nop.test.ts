@@ -1,6 +1,6 @@
 import { NOP } from "vm/instructions/nop";
 import { Memory } from "vm/memory";
-import { Registers } from "vm/registers";
+import { Registers } from "vm/register/registers";
 
 describe("nop test", () => {
   let memory: Memory;
@@ -14,14 +14,12 @@ describe("nop test", () => {
   test("readOperands", () => {
     const prevRegister = register.clone();
     const nop = new NOP();
-    nop.readOperands();
     expect(register.PC).toBe(prevRegister.PC);
   });
 
   test("exec", () => {
     const prevRegister = register.clone();
     const nop = new NOP();
-    nop.readOperands();
     const cycle = nop.exec();
 
     expect(cycle).toBe(4);

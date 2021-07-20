@@ -1,4 +1,4 @@
-import { ProgramCounter } from "vm/program_counter";
+import { ProgramCounter } from "vm/register/program_counter";
 
 describe("ProgramCounter test", () => {
   test("initial value", () => {

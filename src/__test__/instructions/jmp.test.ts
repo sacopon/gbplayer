@@ -1,6 +1,6 @@
 import { JMP } from "vm/instructions/jmp";
 import { Memory } from "vm/memory";
-import { Registers } from "vm/registers";
+import { Registers } from "vm/register/registers";
 
 describe("jmp test", () => {
   let buffer: ArrayBuffer;
@@ -17,8 +17,6 @@ describe("jmp test", () => {
     const prevRegister = register.clone();
 
     const jmp = new JMP(register, new Memory(new Uint8Array(buffer)));
-    jmp.readOperands();
-
     expect(register.PC).toBe(prevRegister.PC + 2);
   });
 
@@ -28,7 +26,6 @@ describe("jmp test", () => {
 
     const prevRegister = register.clone();
     const jmp = new JMP(register, new Memory(new Uint8Array(buffer)));
-    jmp.readOperands();
     const cycle = jmp.exec();
 
     expect(cycle).toBe(16);

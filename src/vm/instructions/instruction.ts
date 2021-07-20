@@ -1,8 +1,7 @@
 import { Memory } from "vm/memory";
-import { Registers } from "vm/registers";
+import { Registers } from "vm/register/registers";
 
 export interface Instruction {
-  readOperands(): void;
   exec(): number;
 }
 

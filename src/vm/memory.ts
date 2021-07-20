@@ -13,8 +13,8 @@ class ROMBank {
 }
 
 export class Memory {
-  private _buffer: ArrayBuffer;
-  private _view: DataView;
+  private readonly _buffer: ArrayBuffer;
+  private readonly _view: DataView;
 
   constructor(romBinary: Uint8Array) {
     this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
@@ -33,7 +33,12 @@ export class Memory {
     return this._view.getUint8(pos);
   }
 
+  /**
+   * 符号なし16bit整数を読み取る(リトルエンディアン)
+   * @param pos 読み取り位置
+   * @returns 読み取った値(0〜65535)
+   */
   public getUint16(pos: number) {
-    return this._view.getUint16(pos);
+    return this._view.getUint16(pos, true);
   }
 }

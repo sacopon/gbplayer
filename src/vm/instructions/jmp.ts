@@ -1,25 +1,24 @@
-import { GameBoy } from "vm/game_boy";
 import { Memory } from "vm/memory";
-import { Registers } from "vm/registers";
-import { Instruction, InstructionBase } from "./instruction";
+import { Registers } from "vm/register/registers";
+import { InstructionBase } from "./instruction";
 
 class Operands {
-  public jumpPos: number = 0;
+  public readonly jumpPos: number;
+
+  public constructor(jumpPos: number) {
+    this.jumpPos = jumpPos;
+  }
 }
 
 export class JMP extends InstructionBase {
   public static readonly CYCLE = 16;
-  private _operand: Operands;
+  private readonly _operand: Operands;
 
   constructor(register: Registers, memory: Memory) {
     super(register, memory);
 
-    this._operand = new Operands();
-  }
-
-  public readOperands() {
-    this._operand.jumpPos = this.readUint16();
-    console.log(`jmp:${this._operand.jumpPos}`);
+    const jumpPos = this.readUint16();
+    this._operand = new Operands(jumpPos);
   }
 
   public exec() {
