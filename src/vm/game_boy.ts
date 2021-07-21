@@ -84,20 +84,7 @@ export class GameBoy {
   private fetch(): Instruction {
     const factory = new InstructionFactory(this._register, this._memory);
 
-    const opecode = this.readUint8();
-    const instruction = factory.create(opecode);
-
-    return instruction;
-  }
-
-  /**
-   * プログラムカウンタが指す位置から1バイト読み込み、プログラムカウンタを進める
-   * @returns 
-   */
-   private readUint8() {
-    const value = this._memory.getUint8(this._register.PC);
-    this._register.PC++;
-
-    return value;
+    const opecode = this._memory.getUint8(this._register.PC);
+    return factory.create(opecode);
   }
 }
