@@ -1,4 +1,4 @@
-import { RegisterAF } from "vm/register_af";
+import { RegisterAF } from "vm/register/register_af";
 
 describe("AFRegister test", () => {
   let reg: RegisterAF;
@@ -14,25 +14,25 @@ describe("AFRegister test", () => {
   });
   
   test("change valid value(under signed 16bit)", () => {
-    reg.value = 40000;
+    reg = new RegisterAF(40000);
     expect(reg.value).toBe(40000);
   });
   
   test("change valid value(under unsigned 16bit)", () => {
-    reg.value = 65000;
+    reg = new RegisterAF(65000);
     expect(reg.value).toBe(65000);
   });
   
   test("change value(over unsigned 16bit value)", () => {
-    expect(() => { reg.value = 100000; }).toThrow();
+    expect(() => { reg = new RegisterAF(100000); }).toThrow();
   });
   
   test("change value(minous value)", () => {
-    expect(() => { reg.value = -100; }).toThrow();
+    expect(() => { reg = new RegisterAF(-100); }).toThrow();
   });
   
   test("get 8bit(hi) value", () => {
-    reg.value = 10000;
+    reg = new RegisterAF(10000);
   
     expect(reg.hi).toBe(39);
   });
@@ -44,7 +44,7 @@ describe("AFRegister test", () => {
   });
   
   test("get 8bit(lo) value", () => {
-    reg.value = 10000;
+    reg = new RegisterAF(10000);
   
     expect(reg.lo).toBe(16);
   });
@@ -63,7 +63,7 @@ describe("AFRegister test", () => {
     test("read", () => {
       expect(reg.flag.Z).toBe(false);
 
-      reg.value = 0x80;
+      reg = new RegisterAF(0x80);
       expect(reg.flag.Z).toBe(true);
     });
 
@@ -73,13 +73,13 @@ describe("AFRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0x7F;
+      reg = new RegisterAF(0x7F);
       reg.flag.Z = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new RegisterAF(0xFF);
       reg.flag.Z = false;
       expect(reg.value).toBe(0x7F);
     });
@@ -93,7 +93,7 @@ describe("AFRegister test", () => {
     test("read", () => {
       expect(reg.flag.N).toBe(false);
 
-      reg.value = 0x40;
+      reg = new RegisterAF(0x40);
       expect(reg.flag.N).toBe(true);
     });
 
@@ -103,13 +103,13 @@ describe("AFRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xBF;
+      reg = new RegisterAF(0xBF);
       reg.flag.N = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new RegisterAF(0xFF);
       reg.flag.N = false;
       expect(reg.value).toBe(0xBF);
     });
@@ -123,7 +123,7 @@ describe("AFRegister test", () => {
     test("read", () => {
       expect(reg.flag.H).toBe(false);
 
-      reg.value = 0x20;
+      reg = new RegisterAF(0x20);
       expect(reg.flag.H).toBe(true);
     });
 
@@ -133,13 +133,13 @@ describe("AFRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xDF;
+      reg = new RegisterAF(0xDF);
       reg.flag.H = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new RegisterAF(0xFF);
       reg.flag.H = false;
       expect(reg.value).toBe(0xDF);
     });
@@ -153,7 +153,7 @@ describe("AFRegister test", () => {
     test("read", () => {
       expect(reg.flag.N).toBe(false);
 
-      reg.value = 0x40;
+      reg = new RegisterAF(0x40);
       expect(reg.flag.N).toBe(true);
     });
 
@@ -163,13 +163,13 @@ describe("AFRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xBF;
+      reg = new RegisterAF(0xBF);
       reg.flag.N = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new RegisterAF(0xFF);
       reg.flag.N = false;
       expect(reg.value).toBe(0xBF);
     });
@@ -183,7 +183,7 @@ describe("AFRegister test", () => {
     test("read", () => {
       expect(reg.flag.C).toBe(false);
 
-      reg.value = 0x10;
+      reg = new RegisterAF(0x10);
       expect(reg.flag.C).toBe(true);
     });
 
@@ -193,13 +193,13 @@ describe("AFRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xEF;
+      reg = new RegisterAF(0xEF);
       reg.flag.C = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new RegisterAF(0xFF);
       reg.flag.C = false;
       expect(reg.value).toBe(0xEF);
     });

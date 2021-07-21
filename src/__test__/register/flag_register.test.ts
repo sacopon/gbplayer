@@ -1,10 +1,10 @@
-import { FlagRegister, RegisterF } from "vm/flag_register";
+import { FlagRegister } from "vm/register/flag_register";
 
 describe("FlagRegister test", () => {
   let reg: FlagRegister;
 
   beforeEach(() => {
-    reg = new RegisterF();
+    reg = new FlagRegister();
   });
 
   test("constructor", () => {
@@ -13,32 +13,32 @@ describe("FlagRegister test", () => {
   });
   
   test("change valid value(under signed 8bit)", () => {
-    reg.value = 100;
+    reg = new FlagRegister(100);
     expect(reg.value).toBe(100);
   });
   
   test("change valid value(under unsigned 8bit)", () => {
-    reg.value = 200;
+    reg = new FlagRegister(200);
     expect(reg.value).toBe(200);
   });
   
   test("change value(over unsigned 8bit value)", () => {
-    expect(() => { reg.value = 65535; }).toThrow();
+    expect(() => { reg = new FlagRegister(65535); }).toThrow();
   });
   
   test("change value(minous value)", () => {
-    expect(() => { reg.value = -100; }).toThrow();
+    expect(() => { reg = new FlagRegister(-100); }).toThrow();
   });
   
   describe("zero flag", () => {
     beforeEach(() => {
-      reg = new RegisterF();
+      reg = new FlagRegister();
     });
 
     test("read", () => {
       expect(reg.Z).toBe(false);
 
-      reg.value = 0x80;
+      reg = new FlagRegister(0x80);
       expect(reg.Z).toBe(true);
     });
 
@@ -48,13 +48,13 @@ describe("FlagRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0x7F;
+      reg = new FlagRegister(0x7F);
       reg.Z = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new FlagRegister(0xFF);
       reg.Z = false;
       expect(reg.value).toBe(0x7F);
     });
@@ -62,13 +62,13 @@ describe("FlagRegister test", () => {
 
   describe("subtract flag", () => {
     beforeEach(() => {
-      reg = new RegisterF();
+      reg = new FlagRegister();
     });
 
     test("read", () => {
       expect(reg.N).toBe(false);
 
-      reg.value = 0x40;
+      reg = new FlagRegister(0x40);
       expect(reg.N).toBe(true);
     });
 
@@ -78,13 +78,13 @@ describe("FlagRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xBF;
+      reg = new FlagRegister(0xBF);
       reg.N = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new FlagRegister(0xFF);
       reg.N = false;
       expect(reg.value).toBe(0xBF);
     });
@@ -92,13 +92,13 @@ describe("FlagRegister test", () => {
 
   describe("half carry flag", () => {
     beforeEach(() => {
-      reg = new RegisterF();
+      reg = new FlagRegister();
     });
 
     test("read", () => {
       expect(reg.H).toBe(false);
 
-      reg.value = 0x20;
+      reg = new FlagRegister(0x20);
       expect(reg.H).toBe(true);
     });
 
@@ -108,13 +108,13 @@ describe("FlagRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xDF;
+      reg = new FlagRegister(0xDF);
       reg.H = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new FlagRegister(0xFF);
       reg.H = false;
       expect(reg.value).toBe(0xDF);
     });
@@ -122,13 +122,13 @@ describe("FlagRegister test", () => {
 
   describe("subtract flag", () => {
     beforeEach(() => {
-      reg = new RegisterF();
+      reg = new FlagRegister();
     });
 
     test("read", () => {
       expect(reg.N).toBe(false);
 
-      reg.value = 0x40;
+      reg = new FlagRegister(0x40);
       expect(reg.N).toBe(true);
     });
 
@@ -138,13 +138,13 @@ describe("FlagRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xBF;
+      reg = new FlagRegister(0xBF);
       reg.N = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new FlagRegister(0xFF);
       reg.N = false;
       expect(reg.value).toBe(0xBF);
     });
@@ -152,13 +152,13 @@ describe("FlagRegister test", () => {
 
   describe("carry flag", () => {
     beforeEach(() => {
-      reg = new RegisterF();
+      reg = new FlagRegister();
     });
 
     test("read", () => {
       expect(reg.C).toBe(false);
 
-      reg.value = 0x10;
+      reg = new FlagRegister(0x10);
       expect(reg.C).toBe(true);
     });
 
@@ -168,13 +168,13 @@ describe("FlagRegister test", () => {
     });
 
     test("on", () => {
-      reg.value = 0xEF;
+      reg = new FlagRegister(0xEF);
       reg.C = true;
       expect(reg.value).toBe(0xFF);
     });
 
     test("off", () => {
-      reg.value = 0xFF;
+      reg = new FlagRegister(0xFF);
       reg.C = false;
       expect(reg.value).toBe(0xEF);
     });

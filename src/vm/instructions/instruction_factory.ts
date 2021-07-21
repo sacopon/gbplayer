@@ -1,5 +1,5 @@
 import { Memory } from "vm/memory";
-import { Registers } from "vm/registers";
+import { Registers } from "vm/register/registers";
 import { Instruction } from "./instruction";
 import { JMP } from "./jmp";
 import { NOP } from "./nop";
