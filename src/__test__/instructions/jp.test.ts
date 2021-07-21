@@ -1,8 +1,8 @@
-import { JMP } from "vm/instructions/jmp";
+import { JP } from "vm/instructions/jp";
 import { Memory } from "vm/memory";
 import { Registers } from "vm/register/registers";
 
-describe("jmp test", () => {
+describe("jp test", () => {
   let buffer: ArrayBuffer;
   let register: Registers;
 
@@ -13,20 +13,13 @@ describe("jmp test", () => {
     register.PC = 0;
   });
 
-  test("readOperands", () => {
-    const prevRegister = register.clone();
-
-    const jmp = new JMP(register, new Memory(new Uint8Array(buffer)));
-    expect(register.PC).toBe(prevRegister.PC + 2);
-  });
-
   test("exec", () => {
     const view = new DataView(buffer);
     view.setUint16(0, 0x1234, true);
 
     const prevRegister = register.clone();
-    const jmp = new JMP(register, new Memory(new Uint8Array(buffer)));
-    const cycle = jmp.exec();
+    const jp = new JP(register, new Memory(new Uint8Array(buffer)));
+    const cycle = jp.exec();
 
     expect(cycle).toBe(16);
     expect(register.AF).toBe(prevRegister.AF);

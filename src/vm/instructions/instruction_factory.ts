@@ -1,7 +1,7 @@
 import { Memory } from "vm/memory";
 import { Registers } from "vm/register/registers";
 import { Instruction } from "./instruction";
-import { JMP } from "./jmp";
+import { JP } from "./jp";
 import { NOP } from "./nop";
 
 const OPECODES = {
@@ -23,11 +23,11 @@ export class InstructionFactory {
 
     switch (opecode) {
       case OPECODES.NOP:
-        instruction = new NOP();
+        instruction = new NOP(this._register, this._memory);
         break;
 
       case OPECODES.JMP:
-        instruction = new JMP(this._register, this._memory);
+        instruction = new JP(this._register, this._memory);
         break;
 
       default:
