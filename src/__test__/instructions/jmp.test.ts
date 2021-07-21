@@ -22,7 +22,7 @@ describe("jmp test", () => {
 
   test("exec", () => {
     const view = new DataView(buffer);
-    view.setUint16(0, 0x1234);
+    view.setUint16(0, 0x1234, true);
 
     const prevRegister = register.clone();
     const jmp = new JMP(register, new Memory(new Uint8Array(buffer)));
