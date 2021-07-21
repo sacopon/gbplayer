@@ -6,7 +6,7 @@ import { RegisterAF } from "./register_af";
 /**
  * レジスタ
  */
-export class Registers {
+export class RegisterSet {
   private _AF: RegisterAF;
   private _BC: Register16bit;
   private _DE: Register16bit;
@@ -27,7 +27,7 @@ export class Registers {
    * デバッグ用
    */
   public clone() {
-    const registers = new Registers();
+    const registers = new RegisterSet();
     registers.AF = this.AF;
     registers.BC = this.BC;
     registers.DE = this.DE;

@@ -1,5 +1,5 @@
 import { Memory } from "vm/memory";
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JP } from "./jp";
 import { NOP } from "./nop";
@@ -10,10 +10,10 @@ const OPECODES = {
 };
 
 export class InstructionFactory {
-  private _register: Registers;
+  private _register: RegisterSet;
   private _memory: Memory;
 
-  constructor(register: Registers, memory: Memory) {
+  constructor(register: RegisterSet, memory: Memory) {
     this._register = register;
     this._memory = memory;
   }

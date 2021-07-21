@@ -1,15 +1,15 @@
 import { JP } from "vm/instructions/jp";
 import { Memory } from "vm/memory";
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 
 describe("jp test", () => {
   let buffer: ArrayBuffer;
-  let register: Registers;
+  let register: RegisterSet;
 
   beforeEach(() => {
     buffer = new ArrayBuffer(10);
 
-    register = new Registers();
+    register = new RegisterSet();
     register.PC = 0;
   });
 

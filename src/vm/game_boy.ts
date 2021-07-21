@@ -2,7 +2,7 @@ import { FrameBuffer } from "./frame_buffer";
 import { Instruction } from "./instructions/instruction";
 import { InstructionFactory } from "./instructions/instruction_factory";
 import { Memory } from "./memory";
-import { Registers } from "./register/registers";
+import { RegisterSet } from "./register/register_set";
 
 /**
  * 仮想ゲームボーイの本体
@@ -15,13 +15,13 @@ export class GameBoy {
   /** TODO: 別のところへ移動することになる */
   private readonly _frameBuffer: FrameBuffer;
   /** レジスタ */
-  private readonly _register: Registers;
+  private readonly _register: RegisterSet;
   /** メモリ領域 */
   private readonly _memory: Memory;
 
   public constructor(romBinary: Uint8Array) {
     this._frameBuffer = new FrameBuffer();
-    this._register = new Registers();
+    this._register = new RegisterSet();
     this._memory = new Memory(romBinary);
   }
 

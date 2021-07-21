@@ -1,5 +1,5 @@
 import { Memory } from "vm/memory";
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 import { InstructionBase } from "./instruction";
 
 class Operands {
@@ -14,7 +14,7 @@ export class JP extends InstructionBase {
   public static readonly CYCLE = 16;
   private readonly _operand: Operands;
 
-  constructor(register: Registers, memory: Memory) {
+  constructor(register: RegisterSet, memory: Memory) {
     super(register, memory);
 
     const jumpPos = this.readUint16();

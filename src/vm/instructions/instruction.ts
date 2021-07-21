@@ -1,5 +1,5 @@
 import { Memory } from "vm/memory";
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 
 export interface Instruction {
   exec(): number;
@@ -7,10 +7,10 @@ export interface Instruction {
 
 export class InstructionBase {
   public static readonly OPECODE_BYTE = 1;
-  private readonly _register: Registers;
+  private readonly _register: RegisterSet;
   private readonly _memory: Memory;
 
-  constructor(register: Registers, memory: Memory) {
+  constructor(register: RegisterSet, memory: Memory) {
     this._register = register;
     this._memory = memory;
   }

@@ -1,14 +1,14 @@
 import { NOP } from "vm/instructions/nop";
 import { Memory } from "vm/memory";
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 
 describe("nop test", () => {
   let memory: Memory;
-  let register: Registers;
+  let register: RegisterSet;
 
   beforeEach(() => {
     memory = new Memory(new Uint8Array(new ArrayBuffer(10)));
-    register = new Registers();
+    register = new RegisterSet();
   });
 
   test("exec", () => {

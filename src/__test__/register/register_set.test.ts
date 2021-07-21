@@ -1,12 +1,12 @@
-import { Registers } from "vm/register/registers";
+import { RegisterSet } from "vm/register/register_set";
 
-describe("Registers test", () => {
+describe("RegisterSet test", () => {
   // A
   describe("A register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -34,10 +34,10 @@ describe("Registers test", () => {
 
   // AF
   describe("AF register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -89,10 +89,10 @@ describe("Registers test", () => {
 
   // B
   describe("B register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -120,10 +120,10 @@ describe("Registers test", () => {
 
   // C
   describe("C register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -151,10 +151,10 @@ describe("Registers test", () => {
 
   // BC
   describe("BC register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -206,10 +206,10 @@ describe("Registers test", () => {
 
   // D
   describe("D register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -237,10 +237,10 @@ describe("Registers test", () => {
 
   // E
   describe("E register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -268,10 +268,10 @@ describe("Registers test", () => {
 
   // DE
   describe("DE register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -323,10 +323,10 @@ describe("Registers test", () => {
 
   // H
   describe("H register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -354,10 +354,10 @@ describe("Registers test", () => {
 
   // L
   describe("L register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
@@ -385,10 +385,10 @@ describe("Registers test", () => {
 
   // HL
   describe("HL register", () => {
-    let reg: Registers;
+    let reg: RegisterSet;
 
     beforeEach(() => {
-      reg = new Registers();
+      reg = new RegisterSet();
     });
 
     test("constructor", () => {
