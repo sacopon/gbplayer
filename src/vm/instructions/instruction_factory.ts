@@ -23,7 +23,7 @@ export class InstructionFactory {
 
     switch (opecode) {
       case OPECODES.NOP:
-        instruction = new NOP();
+        instruction = new NOP(this._register, this._memory);
         break;
 
       case OPECODES.JMP:
