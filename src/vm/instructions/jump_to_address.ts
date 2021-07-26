@@ -22,7 +22,7 @@ export class JumpToAddress extends InstructionBase {
   }
 
   public exec() {
-    this.changeProgramCounter(this._operand.jumpPos);
+    this.assignProgramCounter(this._operand.jumpPos);
     return JumpToAddress.CYCLE;
   }
 }

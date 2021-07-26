@@ -5,7 +5,7 @@ export interface Instruction {
   exec(): number;
 }
 
-export class InstructionBase {
+export abstract class InstructionBase implements Instruction {
   public static readonly OPECODE_BYTE = 1;
   public static readonly IMMEDIATE_1BYTE = 1;
 
@@ -16,6 +16,8 @@ export class InstructionBase {
     this._register = register;
     this._memory = memory;
   }
+
+  public abstract exec(): number;
 
   protected assignB(value: number) {
     this._register.B = value;
@@ -33,7 +35,7 @@ export class InstructionBase {
     this._register.PC += value;
   }
 
-  protected changeProgramCounter(value: number) {
+  protected assignProgramCounter(value: number) {
     this._register.PC = value;
   }
 
