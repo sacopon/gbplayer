@@ -1,8 +1,9 @@
-import { LoadImmediateIntoRegisterB } from "vm/instructions/load_immediate_into_register_b";
+import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
+import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD B, n test", () => {
+describe("LD D, n test", () => {
   let buffer: ArrayBuffer;
   let register: RegisterSet;
 
@@ -25,20 +26,20 @@ describe("LD B, n test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LoadImmediateIntoRegisterB(register, new Memory(new Uint8Array(buffer)));
+    const ld = new LoadImmediateIntoRegisterD(register, new Memory(new Uint8Array(buffer)));
     const cycle = ld.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(8);
     // 他のレジスタに影響を与えていないことの確認
     expect(register.AF).toBe(prevRegister.AF);
-    expect(register.DE).toBe(prevRegister.DE);
+    expect(register.BC).toBe(prevRegister.BC);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
     // 指定のレジスタの値が変わっていることの確認
-    expect(register.BC).toBe(0xAB44);
-    expect(register.B).toBe(0xAB);
-    expect(register.C).toBe(0x44);
+    expect(register.DE).toBe(0xAB66);
+    expect(register.D).toBe(0xAB);
+    expect(register.E).toBe(0x66);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 2);
   });

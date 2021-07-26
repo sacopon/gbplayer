@@ -15,7 +15,7 @@ describe("LD C, n test", () => {
 
   test("exec", () => {
     const view = new DataView(buffer);
-    view.setUint16(0, 0x0EAB, true);
+    view.setUint8(0, 0xAB);
 
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;

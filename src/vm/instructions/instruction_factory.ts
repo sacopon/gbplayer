@@ -4,6 +4,7 @@ import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
+import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
 import { NOP } from "./nop";
 
 const OPECODES = {
@@ -15,6 +16,8 @@ const OPECODES = {
   LOAD_IMMIDIATE_INTO_REGISTER_B: 0x06,
   /** LD C, n # n = 8bit immediate value */
   LOAD_IMMIDIATE_INTO_REGISTER_C: 0x0E,
+  /** LD D, n # n = 8bit immediate value */
+  LOAD_IMMIDIATE_INTO_REGISTER_D: 0x16,
 };
 
 export class InstructionFactory {
@@ -42,10 +45,14 @@ export class InstructionFactory {
         instruction = new LoadImmediateIntoRegisterB(this._register, this._memory);
         break;
 
-        case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
-          instruction = new LoadImmediateIntoRegisterC(this._register, this._memory);
-          break;
-  
+      case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
+        instruction = new LoadImmediateIntoRegisterC(this._register, this._memory);
+        break;
+
+      case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_D:
+        instruction = new LoadImmediateIntoRegisterD(this._register, this._memory);
+        break;
+
         default:
         throw new Error("no implementation");
     }
