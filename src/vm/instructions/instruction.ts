@@ -21,6 +21,10 @@ export class InstructionBase {
     this._register.B = value;
   }
 
+  protected assignC(value: number) {
+    this._register.C = value;
+  }
+
   protected addProgramCounter(value: number) {
     this._register.PC += value;
   }

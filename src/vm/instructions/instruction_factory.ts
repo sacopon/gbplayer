@@ -3,6 +3,7 @@ import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
+import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
 import { NOP } from "./nop";
 
 const OPECODES = {
@@ -12,6 +13,8 @@ const OPECODES = {
   JUMP_TO_ADDRESS: 0xC3,
   /** LD B, n # n = 8bit immediate value */
   LOAD_IMMIDIATE_INTO_REGISTER_B: 0x06,
+  /** LD C, n # n = 8bit immediate value */
+  LOAD_IMMIDIATE_INTO_REGISTER_C: 0x0E,
 };
 
 export class InstructionFactory {
@@ -39,7 +42,11 @@ export class InstructionFactory {
         instruction = new LoadImmediateIntoRegisterB(this._register, this._memory);
         break;
 
-      default:
+        case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
+          instruction = new LoadImmediateIntoRegisterC(this._register, this._memory);
+          break;
+  
+        default:
         throw new Error("no implementation");
     }
 
