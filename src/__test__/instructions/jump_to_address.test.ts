@@ -1,4 +1,4 @@
-import { JP } from "vm/instructions/jp";
+import { JumpToAddress } from "vm/instructions/jump_to_address";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -18,7 +18,7 @@ describe("jp test", () => {
     view.setUint16(0, 0x1234, true);
 
     const prevRegister = register.clone();
-    const jp = new JP(register, new Memory(new Uint8Array(buffer)));
+    const jp = new JumpToAddress(register, new Memory(new Uint8Array(buffer)));
     const cycle = jp.exec();
 
     expect(cycle).toBe(16);

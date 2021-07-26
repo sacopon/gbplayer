@@ -10,7 +10,7 @@ class Operands {
   }
 }
 
-export class JP extends InstructionBase {
+export class JumpToAddress extends InstructionBase {
   public static readonly CYCLE = 16;
   private readonly _operand: Operands;
 
@@ -23,6 +23,6 @@ export class JP extends InstructionBase {
 
   public exec() {
     this.changeProgramCounter(this._operand.jumpPos);
-    return JP.CYCLE;
+    return JumpToAddress.CYCLE;
   }
 }
