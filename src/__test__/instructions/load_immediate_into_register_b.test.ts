@@ -22,6 +22,7 @@ describe("LD B, n test", () => {
     register.BC = 0x3344;
     register.DE = 0x5566;
     register.HL = 0x7788;
+    register.SP = 0x99AA;
     const prevRegister = register.clone();
 
     const ld = new LoadImmediateIntoRegisterB(register, new Memory(new Uint8Array(buffer)));
@@ -33,6 +34,7 @@ describe("LD B, n test", () => {
     expect(register.AF).toBe(prevRegister.AF);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
+    expect(register.SP).toBe(prevRegister.SP);
     // 指定のレジスタの値が変わっていることの確認
     expect(register.BC).toBe(0xAB44);
     expect(register.B).toBe(0xAB);

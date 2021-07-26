@@ -17,15 +17,26 @@ describe("jp test", () => {
     const view = new DataView(buffer);
     view.setUint16(0, 0x1234, true);
 
+    // レジスタにテスト用の初期値を設定
+    register.AF = 0x1122;
+    register.BC = 0x3344;
+    register.DE = 0x5566;
+    register.HL = 0x7788;
+    register.SP = 0x99AA;
     const prevRegister = register.clone();
+
     const jp = new JumpToAddress(register, new Memory(new Uint8Array(buffer)));
     const cycle = jp.exec();
 
+    // 返値(サイクル数)の確認
     expect(cycle).toBe(16);
+    // 他のレジスタに影響を与えていないことの確認
     expect(register.AF).toBe(prevRegister.AF);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
+    expect(register.SP).toBe(prevRegister.SP);
+    // プログラムカウンタが指定の位置を指していることの確認
     expect(register.PC).toBe(0x1234);
   });
 });

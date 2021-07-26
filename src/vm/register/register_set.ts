@@ -2,6 +2,7 @@ import { FlagRegister } from "./flag_register";
 import { ProgramCounter } from "./program_counter";
 import { Register16bit, General16bitRegister } from "./register_16bit";
 import { RegisterAF } from "./register_af";
+import { StackPointer } from "./stack_pointer";
 
 /**
  * レジスタ
@@ -12,7 +13,7 @@ export class RegisterSet {
   private _DE: Register16bit;
   private _HL: Register16bit;
   private _PC: ProgramCounter;
-  // private _SP: StackPointer;
+  private _SP: StackPointer;
 
   constructor() {
     this._AF = new RegisterAF();
@@ -20,7 +21,7 @@ export class RegisterSet {
     this._DE = new General16bitRegister();
     this._HL = new General16bitRegister();
     this._PC = new ProgramCounter(0); // TODO: 現状ではテストしやすいように0を指定しておく
-    // this._SP = new StackPointer();
+    this._SP = new StackPointer();
   }
 
   /**
@@ -33,7 +34,7 @@ export class RegisterSet {
     registers.DE = this.DE;
     registers.HL = this.HL;
     registers.PC = this.PC;
-    // registers.SP = this.SP;
+    registers.SP = this.SP;
 
     return registers;
   }
@@ -229,9 +230,15 @@ export class RegisterSet {
     this._PC = new ProgramCounter(value);
   }
 
-//   /**
-//    * スタックポインタ(16bit)
-//    * メモリ上のスタックエリアの位置を示す
-//    */
-//    get SP(): number;
+  /**
+   * スタックポインタ(16bit)
+   * メモリ上のスタックエリアの位置を示す
+   */
+   get SP(): number {
+     return this._SP.value;
+   }
+
+   set SP(value: number) {
+     this._SP = new StackPointer(value);
+   }
 }
