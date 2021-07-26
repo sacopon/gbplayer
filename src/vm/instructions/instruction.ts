@@ -7,12 +7,18 @@ export interface Instruction {
 
 export class InstructionBase {
   public static readonly OPECODE_BYTE = 1;
+  public static readonly IMMEDIATE_1BYTE = 1;
+
   private readonly _register: RegisterSet;
   private readonly _memory: Memory;
 
   constructor(register: RegisterSet, memory: Memory) {
     this._register = register;
     this._memory = memory;
+  }
+
+  protected assignB(value: number) {
+    this._register.B = value;
   }
 
   protected addProgramCounter(value: number) {
