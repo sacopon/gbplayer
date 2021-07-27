@@ -19,6 +19,10 @@ export abstract class InstructionBase implements Instruction {
 
   public abstract exec(): number;
 
+  protected assignA(value: number) {
+    this._register.A = value;
+  }
+
   protected assignB(value: number) {
     this._register.B = value;
   }
@@ -29,6 +33,10 @@ export abstract class InstructionBase implements Instruction {
 
   protected assignD(value: number) {
     this._register.D = value;
+  }
+
+  protected getA() {
+    return this._register.A;
   }
 
   protected addProgramCounter(value: number) {
