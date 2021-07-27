@@ -1,6 +1,7 @@
+import { CpuAccessor } from "vm/cpu_accessor";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
-import { InstructionBase } from "./instruction";
+import { IMMEDIATE_1BYTE, Instruction, OPECODE_BYTE } from "./instruction";
 
 class Operands {
   public readonly value: number;
@@ -13,20 +14,22 @@ class Operands {
 /**
  * Bレジスタに 8bit の即値を代入する命令
  */
-export class LoadImmediateIntoRegisterB extends InstructionBase {
+export class LoadImmediateIntoRegisterB implements Instruction {
   public static readonly CYCLE = 8;
+
+  private readonly _accessor: CpuAccessor;
   private readonly _operand: Operands;
 
   constructor(register: RegisterSet, memory: Memory) {
-    super(register, memory);
+    this._accessor = new CpuAccessor(register, memory);
 
-    const value = this.readOperandUint8();
+    const value = this._accessor.readOperandUint8();
     this._operand = new Operands(value);
   }
 
   public exec() {
-    this.assignB(this._operand.value);
-    this.addProgramCounter(InstructionBase.OPECODE_BYTE + InstructionBase.IMMEDIATE_1BYTE);
+    this._accessor.assignB(this._operand.value);
+    this._accessor.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
 
     return LoadImmediateIntoRegisterB.CYCLE;
   }
