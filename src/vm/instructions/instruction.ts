@@ -39,6 +39,10 @@ export abstract class InstructionBase implements Instruction {
     return this._register.A;
   }
 
+  protected getB() {
+    return this._register.B;
+  }
+
   protected addProgramCounter(value: number) {
     this._register.PC += value;
   }
