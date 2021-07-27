@@ -18,8 +18,7 @@ export class Memory {
   private readonly _view: DataView;
 
   constructor(romBinary: Uint8Array) {
-    this._buffer = new ArrayBuffer(0xFFFF); // LD A, (C) の場合 0xFF00 以降にアクセスするため
-                                            // どの程度のサイズを確保すればよいのかわかっていない
+    this._buffer = new ArrayBuffer(0xFFFF);
     // this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
     // this._debugBuffer = new Array(this._buffer.byteLength);
     this._view = new DataView(this._buffer);
