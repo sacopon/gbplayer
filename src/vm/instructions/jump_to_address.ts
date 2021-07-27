@@ -17,7 +17,7 @@ export class JumpToAddress extends InstructionBase {
   constructor(register: RegisterSet, memory: Memory) {
     super(register, memory);
 
-    const jumpPos = this.readUint16();
+    const jumpPos = this.readOperandUint16();
     this._operand = new Operands(jumpPos);
   }
 

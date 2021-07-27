@@ -20,7 +20,7 @@ export class LoadImmediateIntoRegisterB extends InstructionBase {
   constructor(register: RegisterSet, memory: Memory) {
     super(register, memory);
 
-    const value = this.readUint8();
+    const value = this.readOperandUint8();
     this._operand = new Operands(value);
   }
 

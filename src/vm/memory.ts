@@ -14,14 +14,19 @@ class ROMBank {
 
 export class Memory {
   private readonly _buffer: ArrayBuffer;
+  // private readonly _debugBuffer: Array<number>;
   private readonly _view: DataView;
 
   constructor(romBinary: Uint8Array) {
-    this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
+    this._buffer = new ArrayBuffer(0xFFFF); // LD A, (C) の場合 0xFF00 以降にアクセスするため
+                                            // どの程度のサイズを確保すればよいのかわかっていない
+    // this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
+    // this._debugBuffer = new Array(this._buffer.byteLength);
     this._view = new DataView(this._buffer);
 
     for (let i = 0; i < this._buffer.byteLength; ++i) {
       this._view.setUint8(i, romBinary[i]);
+      // this._debugBuffer[i] = romBinary[i];
     }
   }
 

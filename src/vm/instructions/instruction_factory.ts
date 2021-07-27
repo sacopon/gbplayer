@@ -2,6 +2,7 @@ import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
+import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_into_register_a";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
@@ -24,6 +25,8 @@ const enum OPECODES {
   LOAD_REGISTER_A_INTO_REGISTER_A = 0x7F,
   /** LD A, B */
   LOAD_REGISTER_B_INTO_REGISTER_A = 0x78,
+  /** LD A, (C) */
+  LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A = 0xF2,
 };
 
 export class InstructionFactory {
@@ -67,7 +70,11 @@ export class InstructionFactory {
           instruction = new LoadRegisterBIntoRegisterA(this._register, this._memory);
           break;
   
-        default:
+          case OPECODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
+            instruction = new LoadAddressRegisterCIntoRegisterA(this._register, this._memory);
+            break;
+    
+          default:
         throw new Error("no implementation");
     }
 

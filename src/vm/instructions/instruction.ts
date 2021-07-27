@@ -43,6 +43,10 @@ export abstract class InstructionBase implements Instruction {
     return this._register.B;
   }
 
+  protected getC() {
+    return this._register.C;
+  }
+
   protected addProgramCounter(value: number) {
     this._register.PC += value;
   }
@@ -51,11 +55,19 @@ export abstract class InstructionBase implements Instruction {
     this._register.PC = value;
   }
 
+  protected readOperandUint8(offset: number = 0) {
+    return this.readUint8(this._register.PC + offset);
+  }
+
+  protected readOperandUint16(offset: number = 0) {
+    return this.readUint16(this._register.PC + offset);
+  }
+
   protected readUint8(offset: number = 0) {
-    return this._memory.getUint8(this._register.PC + offset);
+    return this._memory.getUint8(offset);
   }
 
   protected readUint16(offset: number = 0) {
-    return this._memory.getUint16(this._register.PC + offset);
+    return this._memory.getUint16(offset);
   }
 }
