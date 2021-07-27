@@ -8,8 +8,8 @@ export class NOP implements Instruction {
 
   private readonly _accessor: CpuAccessor;
 
-  constructor(register: RegisterSet, memory: Memory) {
-    this._accessor = new CpuAccessor(register, memory);
+  constructor(accessor: CpuAccessor) {
+    this._accessor = accessor;
   }
 
   public exec() {

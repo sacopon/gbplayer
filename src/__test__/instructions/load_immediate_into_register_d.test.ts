@@ -1,3 +1,4 @@
+import { CpuAccessor } from "vm/cpu_accessor";
 import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
 import { Memory } from "vm/memory";
@@ -26,7 +27,7 @@ describe("LD D, n test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LoadImmediateIntoRegisterD(register, new Memory(new Uint8Array(buffer)));
+    const ld = new LoadImmediateIntoRegisterD(new CpuAccessor(register, new Memory(new Uint8Array(buffer))));
     const cycle = ld.exec();
 
     // 返値(サイクル数)の確認

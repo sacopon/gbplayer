@@ -1,6 +1,4 @@
 import { CpuAccessor } from "vm/cpu_accessor";
-import { Memory } from "vm/memory";
-import { RegisterSet } from "vm/register/register_set";
 import { Instruction, OPECODE_BYTE } from "./instruction";
 
 /**
@@ -13,8 +11,8 @@ export class LoadAddressRegisterCIntoRegisterA implements Instruction {
 
   private readonly _accessor: CpuAccessor;
 
-  constructor(register: RegisterSet, memory: Memory) {
-    this._accessor = new CpuAccessor(register, memory);
+  constructor(accessor: CpuAccessor) {
+    this._accessor = accessor;
   }
 
   public exec() {

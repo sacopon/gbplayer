@@ -1,6 +1,4 @@
 import { CpuAccessor } from "vm/cpu_accessor";
-import { Memory } from "vm/memory";
-import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 
 class Operands {
@@ -17,8 +15,8 @@ export class JumpToAddress implements Instruction {
   private readonly _accessor: CpuAccessor;
   private readonly _operand: Operands;
 
-  constructor(register: RegisterSet, memory: Memory) {
-    this._accessor = new CpuAccessor(register, memory);
+  constructor(accessor: CpuAccessor) {
+    this._accessor = accessor;
 
     const jumpPos = this._accessor.readOperandUint16();
     this._operand = new Operands(jumpPos);

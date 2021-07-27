@@ -1,3 +1,4 @@
+import { CpuAccessor } from "vm/cpu_accessor";
 import { LoadRegisterBIntoRegisterA } from "vm/instructions/load_register_b_into_register_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
@@ -24,7 +25,7 @@ describe("LD A, A test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LoadRegisterBIntoRegisterA(register, memory);
+    const ld = new LoadRegisterBIntoRegisterA(new CpuAccessor(register, memory));
     const cycle = ld.exec();
 
     // 返値(サイクル数)の確認
