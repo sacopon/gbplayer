@@ -9,21 +9,21 @@ import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
 import { LoadRegisterBIntoRegisterA } from "./load_register_b_into_register_a";
 import { NOP } from "./nop";
 
-const OPECODES = {
+const enum OPECODES {
   /** NOP */
-  NOP: 0,
+  NOP = 0,
   /** JP nn # nn = 16bit address */
-  JUMP_TO_ADDRESS: 0xC3,
+  JUMP_TO_ADDRESS = 0xC3,
   /** LD B, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_B: 0x06,
+  LOAD_IMMIDIATE_INTO_REGISTER_B = 0x06,
   /** LD C, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_C: 0x0E,
+  LOAD_IMMIDIATE_INTO_REGISTER_C = 0x0E,
   /** LD D, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_D: 0x16,
+  LOAD_IMMIDIATE_INTO_REGISTER_D = 0x16,
   /** LD A, A */
-  LOAD_REGISTER_A_INTO_REGISTER_A: 0x7F,
+  LOAD_REGISTER_A_INTO_REGISTER_A = 0x7F,
   /** LD A, B */
-  LOAD_REGISTER_B_INTO_REGISTER_A: 0x78,
+  LOAD_REGISTER_B_INTO_REGISTER_A = 0x78,
 };
 
 export class InstructionFactory {
