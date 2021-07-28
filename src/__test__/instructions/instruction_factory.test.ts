@@ -3,6 +3,7 @@ import { LoadAddressRegisterCIntoRegisterA } from "vm/instructions/load_address_
 import { LoadImmediateIntoRegisterB } from "vm/instructions/load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
+import { LoadRegisterAIntoAddressRegisterC } from "vm/instructions/load_register_a_into_address_register_c";
 import { LoadRegisterAIntoRegisterA } from "vm/instructions/load_register_a_into_register_a";
 import { LoadRegisterBIntoRegisterA } from "vm/instructions/load_register_b_into_register_a";
 import { Memory } from "vm/memory";
@@ -42,6 +43,12 @@ describe("instruction factory test", () => {
   describe("LD A, (C)", () => {
     test("LD A, (C)", () => {
       expect(instructionFactory.create(0xF2)).toBeInstanceOf(LoadAddressRegisterCIntoRegisterA);
+    });
+  });
+
+  describe("LD (C), A", () => {
+    test("LD (C), A", () => {
+      expect(instructionFactory.create(0xE2)).toBeInstanceOf(LoadRegisterAIntoAddressRegisterC);
     });
   });
 });

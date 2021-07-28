@@ -7,6 +7,7 @@ import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_int
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
+import { LoadRegisterAIntoAddressRegisterC } from "./load_register_a_into_address_register_c";
 import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
 import { LoadRegisterBIntoRegisterA } from "./load_register_b_into_register_a";
 import { NOP } from "./nop";
@@ -28,6 +29,8 @@ const enum OPECODES {
   LOAD_REGISTER_B_INTO_REGISTER_A = 0x78,
   /** LD A, (C) */
   LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A = 0xF2,
+  /** LD (C), A */
+  LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C = 0xE2,
 };
 
 export class InstructionFactory {
@@ -72,6 +75,10 @@ export class InstructionFactory {
       case OPECODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
           instruction = new LoadAddressRegisterCIntoRegisterA(this._accessor);
           break;
+
+      case OPECODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
+        instruction = new LoadRegisterAIntoAddressRegisterC(this._accessor);
+        break;
 
       default:
         throw new Error("no implementation");

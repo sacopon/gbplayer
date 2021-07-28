@@ -37,6 +37,10 @@ export class Memory {
     return this._view.getUint8(pos);
   }
 
+  public setUint8(pos: number, value: number) {
+    return this._view.setUint8(pos, value);
+  }
+
   /**
    * 符号なし16bit整数を読み取る(リトルエンディアン)
    * @param pos 読み取り位置

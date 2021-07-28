@@ -65,6 +65,10 @@ export class CpuAccessor {
     return this._memory.getUint8(offset);
   }
 
+  public writeUint8(offset: number, value: number) {
+    return this._memory.setUint8(offset, value);
+  }
+
   public readUint16(offset: number = 0) {
     return this._memory.getUint16(offset);
   }

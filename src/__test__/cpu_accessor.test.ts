@@ -95,12 +95,17 @@ describe("CpuAccessor test", () => {
     });
 
     test("readUint8", () => {
-      expect(accessor.readOperandUint8(100 + 1)).toBe(1);
-      expect(accessor.readOperandUint8(100 + 2)).toBe(2);
+      expect(accessor.readUint8(100 + 1)).toBe(1);
+      expect(accessor.readUint8(100 + 2)).toBe(2);
+    });
+
+    test("writeUint8", () => {
+      accessor.writeUint8(100 + 1, 0xAB);
+      expect(accessor.readUint8(100 + 1)).toBe(0xAB);
     });
 
     test("readUint16", () => {
-      expect(accessor.readOperandUint16(100 + 1)).toBe(0x0201);
+      expect(accessor.readUint16(100 + 1)).toBe(0x0201);
     });
   });
 });
