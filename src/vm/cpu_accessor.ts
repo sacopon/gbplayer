@@ -41,6 +41,10 @@ export class CpuAccessor {
     return this._register.C;
   }
 
+  public getD() {
+    return this._register.D;
+  }
+
   public addProgramCounter(value: number) {
     this._register.PC += value;
   }
