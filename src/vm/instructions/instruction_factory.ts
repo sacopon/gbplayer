@@ -4,6 +4,7 @@ import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
 import { LddAddressIntoRegister } from "./ldd_address_into_register";
+import { LddRegisterIntoAddress } from "./ldd_register_into_address";
 import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_into_register_a";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
@@ -34,6 +35,8 @@ const enum OPECODES {
   LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C = 0xE2,
   /** LDD A, (HL) */
   LDD_ADDRESS_INTO_REGISTER = 0x3A,
+  /** LDD (HL), A */
+  LDD_REGISTER_INTO_ADDRESS = 0x32,
 };
 
 export class InstructionFactory {
@@ -87,6 +90,10 @@ export class InstructionFactory {
         instruction = new LddAddressIntoRegister(this._accessor);
         break;
 
+      case OPECODES.LDD_REGISTER_INTO_ADDRESS:
+        instruction = new LddRegisterIntoAddress(this._accessor);
+        break;
+  
       default:
         throw new Error("no implementation");
     }
