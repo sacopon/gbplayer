@@ -1,9 +1,9 @@
 import { CpuAccessor } from "vm/cpu_accessor";
-import { LoadAddressRegisterCIntoRegisterA } from "vm/instructions/load_address_register_c_into_register_a";
+import { LddAddressIntoRegister } from "vm/instructions/ldd_address_into_register";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD A, (C) test", () => {
+describe("LDD A, (HL) test", () => {
   let register: RegisterSet;
 
   beforeEach(() => {
@@ -21,15 +21,15 @@ describe("LD A, (C) test", () => {
     const prevRegister = register.clone();
 
     // 読み出す予定の値を設定
-    const buffer = new ArrayBuffer(0xFF01 + 1);
+    const buffer = new ArrayBuffer(3);
     const view = new DataView(buffer);
-    view.setUint8(0xFF00 + 1, 0xAB);
+    view.setUint8(1, 0xAB);
     const memory = new Memory(new Uint8Array(buffer));
 
     // 読み出すアドレス(0xFFからのオフセット)を設定
-    register.C = prevRegister.C = 0x01;
+    register.HL = prevRegister.HL = 1;
 
-    const instruction = new LoadAddressRegisterCIntoRegisterA(new CpuAccessor(register, memory));
+    const instruction = new LddAddressIntoRegister(new CpuAccessor(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
@@ -38,11 +38,12 @@ describe("LD A, (C) test", () => {
     expect(register.F).toBe(prevRegister.F);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
-    expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
     // A レジスタの内容が変わっていることの確認
     expect(register.A).toBe(0xAB);
     expect(register.AF).toBe(0xAB22);
+    // HL レジスタがデクリメントされていることの確認
+    expect(register.HL).toBe(prevRegister.HL - 1);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });

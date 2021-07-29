@@ -45,6 +45,14 @@ export class CpuAccessor {
     return this._register.D;
   }
 
+  public getHL() {
+    return this._register.HL;
+  }
+
+  public decrementHL() {
+    --this._register.HL;
+  }
+
   public addProgramCounter(value: number) {
     this._register.PC += value;
   }
