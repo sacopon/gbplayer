@@ -5,6 +5,7 @@ import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
 import { LddAddressIntoRegister } from "./ldd_address_into_register";
 import { LddRegisterIntoAddress } from "./ldd_register_into_address";
+import { LdhNA } from "./ldh_n_a";
 import { LdiAHl } from "./ldi_a_hl";
 import { LdiHlA } from "./ldi_hl_a";
 import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_into_register_a";
@@ -43,6 +44,8 @@ const enum OPECODES {
   LDI_ADDRESS_INTO_REGISTER = 0x2A,
   /** LDI (HL), A */
   LDI_REGISTER_INTO_ADDRESS = 0x22,
+  /** LDH (n), A */
+  LDH_ADDRESS_INTO_REGISTER = 0xE0,
 };
 
 export class InstructionFactory {
@@ -106,6 +109,10 @@ export class InstructionFactory {
 
       case OPECODES.LDI_REGISTER_INTO_ADDRESS:
         instruction = new LdiHlA(this._accessor);
+        break;
+
+      case OPECODES.LDH_ADDRESS_INTO_REGISTER:
+        instruction = new LdhNA(this._accessor);
         break;
 
       default:

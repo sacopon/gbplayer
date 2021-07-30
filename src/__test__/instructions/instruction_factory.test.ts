@@ -1,6 +1,7 @@
 import { InstructionFactory } from "vm/instructions/instruction_factory";
 import { LddAddressIntoRegister } from "vm/instructions/ldd_address_into_register";
 import { LddRegisterIntoAddress } from "vm/instructions/ldd_register_into_address";
+import { LdhNA } from "vm/instructions/ldh_n_a";
 import { LdiAHl } from "vm/instructions/ldi_a_hl";
 import { LdiHlA } from "vm/instructions/ldi_hl_a";
 import { LoadAddressRegisterCIntoRegisterA } from "vm/instructions/load_address_register_c_into_register_a";
@@ -72,6 +73,12 @@ describe("instruction factory test", () => {
 
     test("LDI (HL), A", () => {
       expect(instructionFactory.create(0x22)).toBeInstanceOf(LdiHlA);
+    });
+  });
+
+  describe("LDH", () => {
+    test("LDH (n), A", () => {
+      expect(instructionFactory.create(0xE0)).toBeInstanceOf(LdhNA);
     });
   });
 });
