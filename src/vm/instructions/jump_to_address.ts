@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Instruction } from "./instruction";
 
 class Operands {
@@ -12,18 +12,18 @@ class Operands {
 export class JumpToAddress implements Instruction {
   public static readonly CYCLE = 16;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
   private readonly _operand: Operands;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
 
-    const jumpPos = this._accessor.readOperandUint16();
+    const jumpPos = this._operation.readOperandUint16();
     this._operand = new Operands(jumpPos);
   }
 
   public exec() {
-    this._accessor.assignProgramCounter(this._operand.jumpPos);
+    this._operation.assignProgramCounter(this._operand.jumpPos);
     return JumpToAddress.CYCLE;
   }
 }

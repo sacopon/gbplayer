@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { LddAddressIntoRegister } from "vm/instructions/ldd_address_into_register";
 import { LddRegisterIntoAddress } from "vm/instructions/ldd_register_into_address";
 import { Memory } from "vm/memory";
@@ -32,7 +32,7 @@ describe("LDD (HL), A test", () => {
     register.A = prevRegister.A = 0xAB;
     expect(register.A).toBe(0xAB);
 
-    const instruction = new LddRegisterIntoAddress(new CpuAccessor(register, memory));
+    const instruction = new LddRegisterIntoAddress(new CpuOperation(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認

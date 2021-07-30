@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { LdiAHl } from "vm/instructions/ldi_a_hl";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
@@ -29,7 +29,7 @@ describe("LDI A, (HL) test", () => {
     // 読み出すアドレスを設定
     register.HL = prevRegister.HL = 1;
 
-    const instruction = new LdiAHl(new CpuAccessor(register, memory));
+    const instruction = new LdiAHl(new CpuOperation(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認

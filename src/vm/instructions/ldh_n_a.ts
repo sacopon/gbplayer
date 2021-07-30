@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { IMMEDIATE_1BYTE, Instruction, OPECODE_BYTE } from "./instruction";
 
 class Operands {
@@ -17,19 +17,19 @@ export class LdhNA implements Instruction {
   public static readonly CYCLE = 12;
   private static readonly _LOAD_OFFSET = 0xFF00;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
   private readonly _operand: Operands;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
 
-    const value = this._accessor.readOperandUint8();
+    const value = this._operation.readOperandUint8();
     this._operand = new Operands(value);
   }
 
   public exec() {
-    this._accessor.writeUint8(LdhNA._LOAD_OFFSET + this._operand.value, this._accessor.getA());
-    this._accessor.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
+    this._operation.writeUint8(LdhNA._LOAD_OFFSET + this._operand.value, this._operation.getA());
+    this._operation.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
 
     return LdhNA.CYCLE;
   }

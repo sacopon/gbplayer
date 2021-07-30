@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Instruction, OPECODE_BYTE } from "./instruction";
 
 /**
@@ -8,15 +8,15 @@ export class LoadRegisterAIntoAddressRegisterC implements Instruction {
   public static readonly CYCLE = 8;
   private static readonly _LOAD_OFFSET = 0xFF00;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
   }
 
   public exec() {
-    this._accessor.writeUint8(LoadRegisterAIntoAddressRegisterC._LOAD_OFFSET + this._accessor.getC(), this._accessor.getA());
-    this._accessor.addProgramCounter(OPECODE_BYTE);
+    this._operation.writeUint8(LoadRegisterAIntoAddressRegisterC._LOAD_OFFSET + this._operation.getC(), this._operation.getA());
+    this._operation.addProgramCounter(OPECODE_BYTE);
 
     return LoadRegisterAIntoAddressRegisterC.CYCLE;
   }

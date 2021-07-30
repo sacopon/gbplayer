@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { LdhNA } from "vm/instructions/ldh_n_a";
 import { LoadRegisterAIntoAddressRegisterC } from "vm/instructions/load_register_a_into_address_register_c";
 import { Memory } from "vm/memory";
@@ -33,7 +33,7 @@ describe("LDH (n), A test", () => {
     register.A = prevRegister.A = 0xAB;
 
     const memory = new Memory(new Uint8Array(buffer));
-    const instruction = new LdhNA(new CpuAccessor(register, memory));
+    const instruction = new LdhNA(new CpuOperation(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認

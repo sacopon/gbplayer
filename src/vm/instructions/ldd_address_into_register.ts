@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Instruction, OPECODE_BYTE } from "./instruction";
 
 /**
@@ -8,16 +8,16 @@ import { Instruction, OPECODE_BYTE } from "./instruction";
 export class LddAddressIntoRegister implements Instruction {
   public static readonly CYCLE = 8;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
   }
 
   public exec() {
-    this._accessor.assignA(this._accessor.readUint8(this._accessor.getHL()));
-    this._accessor.decrementHL();
-    this._accessor.addProgramCounter(OPECODE_BYTE);
+    this._operation.assignA(this._operation.readUint8(this._operation.getHL()));
+    this._operation.decrementHL();
+    this._operation.addProgramCounter(OPECODE_BYTE);
 
     return LddAddressIntoRegister.CYCLE;
   }

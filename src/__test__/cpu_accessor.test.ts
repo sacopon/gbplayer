@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -6,61 +6,61 @@ describe("CpuAccessor test", () => {
   test("constructor", () => {
     const memory = new Memory(new Uint8Array(new ArrayBuffer(1)));
     const register = new RegisterSet();
-    const accessor = new CpuAccessor(register, memory);
-    expect(accessor).toBeInstanceOf(CpuAccessor)
+    const accessor = new CpuOperation(register, memory);
+    expect(accessor).toBeInstanceOf(CpuOperation)
   });
 
   describe("register", () => {
     let memory: Memory;
     let register: RegisterSet;
-    let accessor: CpuAccessor;
+    let operation: CpuOperation;
 
     beforeEach(() => {
       memory = new Memory(new Uint8Array(new ArrayBuffer(1)));
       register = new RegisterSet();
-      accessor = new CpuAccessor(register, memory);
+      operation = new CpuOperation(register, memory);
     });
 
     test("A register", () => {
-      accessor.assignA(0xAB);
-      expect(accessor.getA()).toBe(0xAB)
+      operation.assignA(0xAB);
+      expect(operation.getA()).toBe(0xAB)
     })
 
     test("B register", () => {
-      accessor.assignB(0xAB);
-      expect(accessor.getB()).toBe(0xAB)
+      operation.assignB(0xAB);
+      expect(operation.getB()).toBe(0xAB)
     })
 
     test("C register", () => {
-      accessor.assignC(0xAB);
-      expect(accessor.getC()).toBe(0xAB)
+      operation.assignC(0xAB);
+      expect(operation.getC()).toBe(0xAB)
     })
 
     test("D register", () => {
-      accessor.assignD(0xAB);
-      expect(accessor.getD()).toBe(0xAB)
+      operation.assignD(0xAB);
+      expect(operation.getD()).toBe(0xAB)
     })
   });
 
   describe("Program Counter", () => {
     let memory: Memory;
     let register: RegisterSet;
-    let accessor: CpuAccessor;
+    let operation: CpuOperation;
 
     beforeEach(() => {
       memory = new Memory(new Uint8Array(new ArrayBuffer(1)));
       register = new RegisterSet();
-      accessor = new CpuAccessor(register, memory);
+      operation = new CpuOperation(register, memory);
     });
 
     test("set program counter", () => {
-      accessor.assignProgramCounter(0xAB);
+      operation.assignProgramCounter(0xAB);
       expect(register.PC).toBe(0xAB);
     });
 
     test("add program counter", () => {
-      accessor.assignProgramCounter(0xAB);
-      accessor.addProgramCounter(1);
+      operation.assignProgramCounter(0xAB);
+      operation.addProgramCounter(1);
       expect(register.PC).toBe(0xAC);
     });
   });
@@ -68,7 +68,7 @@ describe("CpuAccessor test", () => {
   describe("memory", () => {
     let memory: Memory;
     let register: RegisterSet;
-    let accessor: CpuAccessor;
+    let operation: CpuOperation;
 
     beforeEach(() => {
       const buffer = new ArrayBuffer(100 + 256);
@@ -80,32 +80,32 @@ describe("CpuAccessor test", () => {
 
       memory = new Memory(new Uint8Array(buffer));
       register = new RegisterSet();
-      accessor = new CpuAccessor(register, memory);
+      operation = new CpuOperation(register, memory);
     });
 
     test("readOperandUint8", () => {
-      accessor.assignProgramCounter(100);
-      expect(accessor.readOperandUint8(1)).toBe(1);
-      expect(accessor.readOperandUint8(2)).toBe(2);
+      operation.assignProgramCounter(100);
+      expect(operation.readOperandUint8(1)).toBe(1);
+      expect(operation.readOperandUint8(2)).toBe(2);
     });
 
     test("readOperandUint16", () => {
-      accessor.assignProgramCounter(100);
-      expect(accessor.readOperandUint16(1)).toBe(0x0201);
+      operation.assignProgramCounter(100);
+      expect(operation.readOperandUint16(1)).toBe(0x0201);
     });
 
     test("readUint8", () => {
-      expect(accessor.readUint8(100 + 1)).toBe(1);
-      expect(accessor.readUint8(100 + 2)).toBe(2);
+      expect(operation.readUint8(100 + 1)).toBe(1);
+      expect(operation.readUint8(100 + 2)).toBe(2);
     });
 
     test("writeUint8", () => {
-      accessor.writeUint8(100 + 1, 0xAB);
-      expect(accessor.readUint8(100 + 1)).toBe(0xAB);
+      operation.writeUint8(100 + 1, 0xAB);
+      expect(operation.readUint8(100 + 1)).toBe(0xAB);
     });
 
     test("readUint16", () => {
-      expect(accessor.readUint16(100 + 1)).toBe(0x0201);
+      expect(operation.readUint16(100 + 1)).toBe(0x0201);
     });
   });
 });

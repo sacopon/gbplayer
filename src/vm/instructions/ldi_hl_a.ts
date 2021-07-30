@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Instruction, OPECODE_BYTE } from "./instruction";
 
 /**
@@ -7,16 +7,16 @@ import { Instruction, OPECODE_BYTE } from "./instruction";
 export class LdiHlA implements Instruction {
   public static readonly CYCLE = 8;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
   }
 
   public exec() {
-    this._accessor.writeUint8(this._accessor.getHL(), this._accessor.getA());
-    this._accessor.incrementHL();
-    this._accessor.addProgramCounter(OPECODE_BYTE);
+    this._operation.writeUint8(this._operation.getHL(), this._operation.getA());
+    this._operation.incrementHL();
+    this._operation.addProgramCounter(OPECODE_BYTE);
 
     return LdiHlA.CYCLE;
   }

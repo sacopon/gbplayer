@@ -4,7 +4,7 @@ import { RegisterSet } from "vm/register/register_set";
 /**
  * CPU/メモリへのアクセスを提供する
  */
-export class CpuAccessor {
+export class CpuOperation {
   private readonly _register: RegisterSet;
   private readonly _memory: Memory;
 

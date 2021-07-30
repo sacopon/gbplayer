@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { LoadAddressRegisterCIntoRegisterA } from "vm/instructions/load_address_register_c_into_register_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
@@ -29,7 +29,7 @@ describe("LD A, (C) test", () => {
     // 読み出すアドレス(0xFFからのオフセット)を設定
     register.C = prevRegister.C = 0x01;
 
-    const instruction = new LoadAddressRegisterCIntoRegisterA(new CpuAccessor(register, memory));
+    const instruction = new LoadAddressRegisterCIntoRegisterA(new CpuOperation(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認

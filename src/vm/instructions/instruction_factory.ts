@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
@@ -49,10 +49,10 @@ const enum OPECODES {
 };
 
 export class InstructionFactory {
-  private _accessor: CpuAccessor;
+  private _operation: CpuOperation;
 
   constructor(register: RegisterSet, memory: Memory) {
-    this._accessor = new CpuAccessor(register, memory);
+    this._operation = new CpuOperation(register, memory);
   }
 
   public create(opecode: number): Instruction {
@@ -60,59 +60,59 @@ export class InstructionFactory {
 
     switch (opecode) {
       case OPECODES.NOP:
-        instruction = new NOP(this._accessor);
+        instruction = new NOP(this._operation);
         break;
 
       case OPECODES.JUMP_TO_ADDRESS:
-        instruction = new JumpToAddress(this._accessor);
+        instruction = new JumpToAddress(this._operation);
         break;
 
       case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_B:
-        instruction = new LoadImmediateIntoRegisterB(this._accessor);
+        instruction = new LoadImmediateIntoRegisterB(this._operation);
         break;
 
       case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
-        instruction = new LoadImmediateIntoRegisterC(this._accessor);
+        instruction = new LoadImmediateIntoRegisterC(this._operation);
         break;
 
       case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_D:
-        instruction = new LoadImmediateIntoRegisterD(this._accessor);
+        instruction = new LoadImmediateIntoRegisterD(this._operation);
         break;
 
       case OPECODES.LOAD_REGISTER_A_INTO_REGISTER_A:
-        instruction = new LoadRegisterAIntoRegisterA(this._accessor);
+        instruction = new LoadRegisterAIntoRegisterA(this._operation);
         break;
 
       case OPECODES.LOAD_REGISTER_B_INTO_REGISTER_A:
-        instruction = new LoadRegisterBIntoRegisterA(this._accessor);
+        instruction = new LoadRegisterBIntoRegisterA(this._operation);
         break;
 
       case OPECODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
-        instruction = new LoadAddressRegisterCIntoRegisterA(this._accessor);
+        instruction = new LoadAddressRegisterCIntoRegisterA(this._operation);
         break;
 
       case OPECODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
-        instruction = new LoadRegisterAIntoAddressRegisterC(this._accessor);
+        instruction = new LoadRegisterAIntoAddressRegisterC(this._operation);
         break;
 
       case OPECODES.LDD_ADDRESS_INTO_REGISTER:
-        instruction = new LddAddressIntoRegister(this._accessor);
+        instruction = new LddAddressIntoRegister(this._operation);
         break;
 
       case OPECODES.LDD_REGISTER_INTO_ADDRESS:
-        instruction = new LddRegisterIntoAddress(this._accessor);
+        instruction = new LddRegisterIntoAddress(this._operation);
         break;
 
       case OPECODES.LDI_ADDRESS_INTO_REGISTER:
-        instruction = new LdiAHl(this._accessor);
+        instruction = new LdiAHl(this._operation);
         break;
 
       case OPECODES.LDI_REGISTER_INTO_ADDRESS:
-        instruction = new LdiHlA(this._accessor);
+        instruction = new LdiHlA(this._operation);
         break;
 
       case OPECODES.LDH_ADDRESS_INTO_REGISTER:
-        instruction = new LdhNA(this._accessor);
+        instruction = new LdhNA(this._operation);
         break;
 
       default:

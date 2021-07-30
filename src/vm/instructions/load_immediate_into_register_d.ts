@@ -1,4 +1,4 @@
-import { CpuAccessor } from "vm/cpu_accessor";
+import { CpuOperation } from "vm/cpu_operation";
 import { IMMEDIATE_1BYTE, Instruction, OPECODE_BYTE } from "./instruction";
 
 class Operands {
@@ -15,19 +15,19 @@ class Operands {
 export class LoadImmediateIntoRegisterD implements Instruction {
   public static readonly CYCLE = 8;
 
-  private readonly _accessor: CpuAccessor;
+  private readonly _operation: CpuOperation;
   private readonly _operand: Operands;
 
-  constructor(accessor: CpuAccessor) {
-    this._accessor = accessor;
+  constructor(operation: CpuOperation) {
+    this._operation = operation;
 
-    const value = this._accessor.readOperandUint8();
+    const value = this._operation.readOperandUint8();
     this._operand = new Operands(value);
   }
 
   public exec() {
-    this._accessor.assignD(this._operand.value);
-    this._accessor.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
+    this._operation.assignD(this._operand.value);
+    this._operation.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
 
     return LoadImmediateIntoRegisterD.CYCLE;
   }
