@@ -2,7 +2,7 @@ import { CpuOperation } from "vm/cpu_operation";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
-import { JumpToAddress } from "./jump_to_address";
+import { JpNn } from "./jp_nn";
 import { LddAddressIntoRegister } from "./ldd_address_into_register";
 import { LddRegisterIntoAddress } from "./ldd_register_into_address";
 import { LdhAN } from "./ldh_a_n";
@@ -22,7 +22,7 @@ const enum OPECODES {
   /** NOP */
   NOP = 0,
   /** JP nn # nn = 16bit address */
-  JUMP_TO_ADDRESS = 0xC3,
+  JP_NN = 0xC3,
   /** LD B, n # n = 8bit immediate value */
   LOAD_IMMIDIATE_INTO_REGISTER_B = 0x06,
   /** LD C, n # n = 8bit immediate value */
@@ -66,8 +66,8 @@ export class InstructionFactory {
         instruction = new NOP(this._operation);
         break;
 
-      case OPECODES.JUMP_TO_ADDRESS:
-        instruction = new JumpToAddress(this._operation);
+      case OPECODES.JP_NN:
+        instruction = new JpNn(this._operation);
         break;
 
       case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_B:

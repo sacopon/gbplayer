@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { JumpToAddress } from "vm/instructions/jump_to_address";
+import { JpNn } from "vm/instructions/jp_nn";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -26,7 +26,7 @@ describe("jp test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const jp = new JumpToAddress(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const jp = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cycle = jp.exec();
 
     // 返値(サイクル数)の確認
