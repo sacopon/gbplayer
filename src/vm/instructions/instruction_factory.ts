@@ -9,7 +9,7 @@ import { LdhAN } from "./ldh_a_n";
 import { LdhNA } from "./ldh_n_a";
 import { LdiAHl } from "./ldi_a_hl";
 import { LdiHlA } from "./ldi_hl_a";
-import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_into_register_a";
+import { LdAC } from "./ld_a_c";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
@@ -34,7 +34,7 @@ const enum OPCODES {
   /** LD A, B */
   LOAD_REGISTER_B_INTO_REGISTER_A = 0x78,
   /** LD A, (C) */
-  LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A = 0xF2,
+  LD_A_C = 0xF2,
   /** LD (C), A */
   LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C = 0xE2,
   /** LDD A, (HL) */
@@ -90,8 +90,8 @@ export class InstructionFactory {
         instruction = new LoadRegisterBIntoRegisterA(this._operation);
         break;
 
-      case OPCODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
-        instruction = new LoadAddressRegisterCIntoRegisterA(this._operation);
+      case OPCODES.LD_A_C:
+        instruction = new LdAC(this._operation);
         break;
 
       case OPCODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:

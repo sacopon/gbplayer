@@ -5,7 +5,7 @@ import { LdhAN } from "vm/instructions/ldh_a_n";
 import { LdhNA } from "vm/instructions/ldh_n_a";
 import { LdiAHl } from "vm/instructions/ldi_a_hl";
 import { LdiHlA } from "vm/instructions/ldi_hl_a";
-import { LoadAddressRegisterCIntoRegisterA } from "vm/instructions/load_address_register_c_into_register_a";
+import { LdAC } from "vm/instructions/ld_a_c";
 import { LoadImmediateIntoRegisterB } from "vm/instructions/load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
 import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
@@ -48,7 +48,7 @@ describe("instruction factory test", () => {
 
   describe("LD A, (C)", () => {
     test("LD A, (C)", () => {
-      expect(instructionFactory.create(0xF2)).toBeInstanceOf(LoadAddressRegisterCIntoRegisterA);
+      expect(instructionFactory.create(0xF2)).toBeInstanceOf(LdAC);
     });
   });
 
