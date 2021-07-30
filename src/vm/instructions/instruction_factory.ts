@@ -4,7 +4,7 @@ import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JpNn } from "./jp_nn";
 import { LddAHl } from "./ldd_a_hl";
-import { LddRegisterIntoAddress } from "./ldd_register_into_address";
+import { LddHlA } from "./ldd_hl_a";
 import { LdhAN } from "./ldh_a_n";
 import { LdhNA } from "./ldh_n_a";
 import { LdiAHl } from "./ldi_a_hl";
@@ -40,7 +40,7 @@ const enum OPCODES {
   /** LDD A, (HL) */
   LDD_A_HL = 0x3A,
   /** LDD (HL), A */
-  LDD_REGISTER_INTO_ADDRESS = 0x32,
+  LDD_HL_A = 0x32,
   /** LDI A, (HL) */
   LDI_ADDRESS_INTO_REGISTER = 0x2A,
   /** LDI (HL), A */
@@ -102,8 +102,8 @@ export class InstructionFactory {
         instruction = new LddAHl(this._operation);
         break;
 
-      case OPCODES.LDD_REGISTER_INTO_ADDRESS:
-        instruction = new LddRegisterIntoAddress(this._operation);
+      case OPCODES.LDD_HL_A:
+        instruction = new LddHlA(this._operation);
         break;
 
       case OPCODES.LDI_ADDRESS_INTO_REGISTER:

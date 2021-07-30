@@ -2,9 +2,10 @@ import { CpuOperation } from "vm/cpu_operation";
 import { Instruction, OPCODE_BYTE } from "./instruction";
 
 /**
- * Aレジスタに格納されている値をHLレジスタが指すメモリ上の番地に代入する命令
+ * LDD (HL), A
+ * HLレジスタが指すメモリ上の番地にAレジスタの値を代入し、HLレジスタをデクリメントする命令
  */
-export class LddRegisterIntoAddress implements Instruction {
+export class LddHlA implements Instruction {
   public static readonly CYCLE = 8;
 
   private readonly _operation: CpuOperation;
@@ -18,6 +19,6 @@ export class LddRegisterIntoAddress implements Instruction {
     this._operation.decrementHL();
     this._operation.addProgramCounter(OPCODE_BYTE);
 
-    return LddRegisterIntoAddress.CYCLE;
+    return LddHlA.CYCLE;
   }
 }

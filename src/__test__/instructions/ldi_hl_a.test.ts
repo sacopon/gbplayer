@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LddRegisterIntoAddress } from "vm/instructions/ldd_register_into_address";
+import { LddHlA } from "vm/instructions/ldd_hl_a";
 import { LdiHlA } from "vm/instructions/ldi_hl_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
