@@ -3,7 +3,7 @@ import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 import { Instruction } from "./instruction";
 import { JpNn } from "./jp_nn";
-import { LddAddressIntoRegister } from "./ldd_address_into_register";
+import { LddAHl } from "./ldd_a_hl";
 import { LddRegisterIntoAddress } from "./ldd_register_into_address";
 import { LdhAN } from "./ldh_a_n";
 import { LdhNA } from "./ldh_n_a";
@@ -38,7 +38,7 @@ const enum OPECODES {
   /** LD (C), A */
   LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C = 0xE2,
   /** LDD A, (HL) */
-  LDD_ADDRESS_INTO_REGISTER = 0x3A,
+  LDD_A_HL = 0x3A,
   /** LDD (HL), A */
   LDD_REGISTER_INTO_ADDRESS = 0x32,
   /** LDI A, (HL) */
@@ -98,8 +98,8 @@ export class InstructionFactory {
         instruction = new LoadRegisterAIntoAddressRegisterC(this._operation);
         break;
 
-      case OPECODES.LDD_ADDRESS_INTO_REGISTER:
-        instruction = new LddAddressIntoRegister(this._operation);
+      case OPECODES.LDD_A_HL:
+        instruction = new LddAHl(this._operation);
         break;
 
       case OPECODES.LDD_REGISTER_INTO_ADDRESS:

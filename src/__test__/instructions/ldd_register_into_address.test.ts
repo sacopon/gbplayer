@@ -1,5 +1,4 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LddAddressIntoRegister } from "vm/instructions/ldd_address_into_register";
 import { LddRegisterIntoAddress } from "vm/instructions/ldd_register_into_address";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";

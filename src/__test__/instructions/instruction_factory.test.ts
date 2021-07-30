@@ -1,5 +1,5 @@
 import { InstructionFactory } from "vm/instructions/instruction_factory";
-import { LddAddressIntoRegister } from "vm/instructions/ldd_address_into_register";
+import { LddAHl } from "vm/instructions/ldd_a_hl";
 import { LddRegisterIntoAddress } from "vm/instructions/ldd_register_into_address";
 import { LdhAN } from "vm/instructions/ldh_a_n";
 import { LdhNA } from "vm/instructions/ldh_n_a";
@@ -60,7 +60,7 @@ describe("instruction factory test", () => {
 
   describe("LDD A, (HL)", () => {
     test("LDD A, (HL)", () => {
-      expect(instructionFactory.create(0x3A)).toBeInstanceOf(LddAddressIntoRegister);
+      expect(instructionFactory.create(0x3A)).toBeInstanceOf(LddAHl);
     });
     test("LDD (HL), A", () => {
       expect(instructionFactory.create(0x32)).toBeInstanceOf(LddRegisterIntoAddress);
