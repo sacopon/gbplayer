@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { NOP } from "vm/instructions/nop";
+import { Nop } from "vm/instructions/nop";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -21,7 +21,7 @@ describe("nop test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const nop = new NOP(new CpuOperation(register, memory));
+    const nop = new Nop(new CpuOperation(register, memory));
     const cycle = nop.exec();
 
     // 返値(サイクル数)の確認

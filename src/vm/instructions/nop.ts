@@ -3,7 +3,7 @@ import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 import { Instruction, OPCODE_BYTE } from "./instruction";
 
-export class NOP implements Instruction {
+export class Nop implements Instruction {
   public static readonly CYCLE = 4;
 
   private readonly _operation: CpuOperation;
@@ -14,6 +14,6 @@ export class NOP implements Instruction {
 
   public exec() {
     this._operation.addProgramCounter(OPCODE_BYTE);
-    return NOP.CYCLE;
+    return Nop.CYCLE;
   }
 }

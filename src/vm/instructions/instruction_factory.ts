@@ -16,7 +16,7 @@ import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
 import { LoadRegisterAIntoAddressRegisterC } from "./load_register_a_into_address_register_c";
 import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
 import { LoadRegisterBIntoRegisterA } from "./load_register_b_into_register_a";
-import { NOP } from "./nop";
+import { Nop } from "./nop";
 
 const enum OPCODES {
   /** NOP */
@@ -63,7 +63,7 @@ export class InstructionFactory {
 
     switch (opcode) {
       case OPCODES.NOP:
-        instruction = new NOP(this._operation);
+        instruction = new Nop(this._operation);
         break;
 
       case OPCODES.JP_NN:
