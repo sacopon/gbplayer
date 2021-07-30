@@ -49,6 +49,10 @@ export class CpuAccessor {
     return this._register.HL;
   }
 
+  public incrementHL() {
+    ++this._register.HL;
+  }
+
   public decrementHL() {
     --this._register.HL;
   }

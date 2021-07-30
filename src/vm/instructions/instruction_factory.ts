@@ -5,6 +5,7 @@ import { Instruction } from "./instruction";
 import { JumpToAddress } from "./jump_to_address";
 import { LddAddressIntoRegister } from "./ldd_address_into_register";
 import { LddRegisterIntoAddress } from "./ldd_register_into_address";
+import { LdiAHl } from "./ldi_a_hl";
 import { LoadAddressRegisterCIntoRegisterA } from "./load_address_register_c_into_register_a";
 import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
 import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
@@ -37,6 +38,8 @@ const enum OPECODES {
   LDD_ADDRESS_INTO_REGISTER = 0x3A,
   /** LDD (HL), A */
   LDD_REGISTER_INTO_ADDRESS = 0x32,
+  /** LDI A, (HL) */
+  LDI_ADDRESS_INTO_REGISTER = 0x2A,
 };
 
 export class InstructionFactory {
@@ -79,8 +82,8 @@ export class InstructionFactory {
         break;
 
       case OPECODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
-          instruction = new LoadAddressRegisterCIntoRegisterA(this._accessor);
-          break;
+        instruction = new LoadAddressRegisterCIntoRegisterA(this._accessor);
+        break;
 
       case OPECODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
         instruction = new LoadRegisterAIntoAddressRegisterC(this._accessor);
@@ -93,7 +96,11 @@ export class InstructionFactory {
       case OPECODES.LDD_REGISTER_INTO_ADDRESS:
         instruction = new LddRegisterIntoAddress(this._accessor);
         break;
-  
+
+      case OPECODES.LDI_ADDRESS_INTO_REGISTER:
+        instruction = new LdiAHl(this._accessor);
+        break;
+
       default:
         throw new Error("no implementation");
     }
