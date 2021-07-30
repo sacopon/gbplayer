@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { IMMEDIATE_1BYTE, Instruction, OPECODE_BYTE } from "./instruction";
+import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "./instruction";
 
 class Operands {
   public readonly value: number;
@@ -27,7 +27,7 @@ export class LoadImmediateIntoRegisterD implements Instruction {
 
   public exec() {
     this._operation.assignD(this._operand.value);
-    this._operation.addProgramCounter(OPECODE_BYTE + IMMEDIATE_1BYTE);
+    this._operation.addProgramCounter(OPCODE_BYTE + IMMEDIATE_1BYTE);
 
     return LoadImmediateIntoRegisterD.CYCLE;
   }

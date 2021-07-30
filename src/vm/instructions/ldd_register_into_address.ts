@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPECODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "./instruction";
 
 /**
  * Aレジスタに格納されている値をHLレジスタが指すメモリ上の番地に代入する命令
@@ -16,7 +16,7 @@ export class LddRegisterIntoAddress implements Instruction {
   public exec() {
     this._operation.writeUint8(this._operation.getHL(), this._operation.getA());
     this._operation.decrementHL();
-    this._operation.addProgramCounter(OPECODE_BYTE);
+    this._operation.addProgramCounter(OPCODE_BYTE);
 
     return LddRegisterIntoAddress.CYCLE;
   }

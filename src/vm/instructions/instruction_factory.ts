@@ -18,7 +18,7 @@ import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
 import { LoadRegisterBIntoRegisterA } from "./load_register_b_into_register_a";
 import { NOP } from "./nop";
 
-const enum OPECODES {
+const enum OPCODES {
   /** NOP */
   NOP = 0,
   /** JP nn # nn = 16bit address */
@@ -58,67 +58,67 @@ export class InstructionFactory {
     this._operation = new CpuOperation(register, memory);
   }
 
-  public create(opecode: number): Instruction {
+  public create(opcode: number): Instruction {
     let instruction: Instruction | null = null;
 
-    switch (opecode) {
-      case OPECODES.NOP:
+    switch (opcode) {
+      case OPCODES.NOP:
         instruction = new NOP(this._operation);
         break;
 
-      case OPECODES.JP_NN:
+      case OPCODES.JP_NN:
         instruction = new JpNn(this._operation);
         break;
 
-      case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_B:
+      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_B:
         instruction = new LoadImmediateIntoRegisterB(this._operation);
         break;
 
-      case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
+      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
         instruction = new LoadImmediateIntoRegisterC(this._operation);
         break;
 
-      case OPECODES.LOAD_IMMIDIATE_INTO_REGISTER_D:
+      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_D:
         instruction = new LoadImmediateIntoRegisterD(this._operation);
         break;
 
-      case OPECODES.LOAD_REGISTER_A_INTO_REGISTER_A:
+      case OPCODES.LOAD_REGISTER_A_INTO_REGISTER_A:
         instruction = new LoadRegisterAIntoRegisterA(this._operation);
         break;
 
-      case OPECODES.LOAD_REGISTER_B_INTO_REGISTER_A:
+      case OPCODES.LOAD_REGISTER_B_INTO_REGISTER_A:
         instruction = new LoadRegisterBIntoRegisterA(this._operation);
         break;
 
-      case OPECODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
+      case OPCODES.LOAD_ADDRESS_REGISTER_C_INTO_REGISTER_A:
         instruction = new LoadAddressRegisterCIntoRegisterA(this._operation);
         break;
 
-      case OPECODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
+      case OPCODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
         instruction = new LoadRegisterAIntoAddressRegisterC(this._operation);
         break;
 
-      case OPECODES.LDD_A_HL:
+      case OPCODES.LDD_A_HL:
         instruction = new LddAHl(this._operation);
         break;
 
-      case OPECODES.LDD_REGISTER_INTO_ADDRESS:
+      case OPCODES.LDD_REGISTER_INTO_ADDRESS:
         instruction = new LddRegisterIntoAddress(this._operation);
         break;
 
-      case OPECODES.LDI_ADDRESS_INTO_REGISTER:
+      case OPCODES.LDI_ADDRESS_INTO_REGISTER:
         instruction = new LdiAHl(this._operation);
         break;
 
-      case OPECODES.LDI_REGISTER_INTO_ADDRESS:
+      case OPCODES.LDI_REGISTER_INTO_ADDRESS:
         instruction = new LdiHlA(this._operation);
         break;
 
-      case OPECODES.LDH_ADDRESS_INTO_REGISTER:
+      case OPCODES.LDH_ADDRESS_INTO_REGISTER:
         instruction = new LdhNA(this._operation);
         break;
 
-      case OPECODES.LDH_REGISTER_INTO_ADDRESS:
+      case OPCODES.LDH_REGISTER_INTO_ADDRESS:
         instruction = new LdhAN(this._operation);
         break;
 

@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPECODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "./instruction";
 
 /**
  * LDI A, (HL)
@@ -18,7 +18,7 @@ export class LdiAHl implements Instruction {
   public exec() {
     this._operation.assignA(this._operation.readUint8(this._operation.getHL()));
     this._operation.incrementHL();
-    this._operation.addProgramCounter(OPECODE_BYTE);
+    this._operation.addProgramCounter(OPCODE_BYTE);
 
     return LdiAHl.CYCLE;
   }

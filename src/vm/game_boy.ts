@@ -84,7 +84,7 @@ export class GameBoy {
   private fetch(): Instruction {
     const factory = new InstructionFactory(this._register, this._memory);
 
-    const opecode = this._memory.getUint8(this._register.PC);
-    return factory.create(opecode);
+    const opcode = this._memory.getUint8(this._register.PC);
+    return factory.create(opcode);
   }
 }
