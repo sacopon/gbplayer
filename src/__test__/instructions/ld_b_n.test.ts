@@ -1,9 +1,9 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
+import { LdBN } from "vm/instructions/ld_b_n";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD C, n test", () => {
+describe("LD B, n test", () => {
   let buffer: ArrayBuffer;
   let register: RegisterSet;
 
@@ -26,7 +26,7 @@ describe("LD C, n test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LoadImmediateIntoRegisterC(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const ld = new LdBN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cycle = ld.exec();
 
     // 返値(サイクル数)の確認
@@ -37,9 +37,9 @@ describe("LD C, n test", () => {
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
     // 指定のレジスタの値が変わっていることの確認
-    expect(register.BC).toBe(0x33AB);
-    expect(register.B).toBe(0x33);
-    expect(register.C).toBe(0xAB);
+    expect(register.BC).toBe(0xAB44);
+    expect(register.B).toBe(0xAB);
+    expect(register.C).toBe(0x44);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 2);
   });

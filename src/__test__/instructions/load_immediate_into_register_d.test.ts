@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
+import { LdCN } from "vm/instructions/ld_c_n";
 import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";

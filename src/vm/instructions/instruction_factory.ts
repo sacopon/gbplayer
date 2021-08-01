@@ -10,8 +10,8 @@ import { LdhNA } from "./ldh_n_a";
 import { LdiAHl } from "./ldi_a_hl";
 import { LdiHlA } from "./ldi_hl_a";
 import { LdAC } from "./ld_a_c";
-import { LoadImmediateIntoRegisterB } from "./load_immediate_into_register_b";
-import { LoadImmediateIntoRegisterC } from "./load_immediate_into_register_c";
+import { LdBN } from "./ld_b_n";
+import { LdCN } from "./ld_c_n";
 import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
 import { LoadRegisterAIntoAddressRegisterC } from "./load_register_a_into_address_register_c";
 import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
@@ -24,9 +24,9 @@ const enum OPCODES {
   /** JP nn # nn = 16bit address */
   JP_NN = 0xC3,
   /** LD B, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_B = 0x06,
+  LD_B_N = 0x06,
   /** LD C, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_C = 0x0E,
+  LD_C_N = 0x0E,
   /** LD D, n # n = 8bit immediate value */
   LOAD_IMMIDIATE_INTO_REGISTER_D = 0x16,
   /** LD A, A */
@@ -70,12 +70,12 @@ export class InstructionFactory {
         instruction = new JpNn(this._operation);
         break;
 
-      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_B:
-        instruction = new LoadImmediateIntoRegisterB(this._operation);
+      case OPCODES.LD_B_N:
+        instruction = new LdBN(this._operation);
         break;
 
-      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_C:
-        instruction = new LoadImmediateIntoRegisterC(this._operation);
+      case OPCODES.LD_C_N:
+        instruction = new LdCN(this._operation);
         break;
 
       case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_D:

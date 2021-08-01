@@ -6,8 +6,8 @@ import { LdhNA } from "vm/instructions/ldh_n_a";
 import { LdiAHl } from "vm/instructions/ldi_a_hl";
 import { LdiHlA } from "vm/instructions/ldi_hl_a";
 import { LdAC } from "vm/instructions/ld_a_c";
-import { LoadImmediateIntoRegisterB } from "vm/instructions/load_immediate_into_register_b";
-import { LoadImmediateIntoRegisterC } from "vm/instructions/load_immediate_into_register_c";
+import { LdBN } from "vm/instructions/ld_b_n";
+import { LdCN } from "vm/instructions/ld_c_n";
 import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
 import { LoadRegisterAIntoAddressRegisterC } from "vm/instructions/load_register_a_into_address_register_c";
 import { LoadRegisterAIntoRegisterA } from "vm/instructions/load_register_a_into_register_a";
@@ -24,11 +24,11 @@ describe("instruction factory test", () => {
 
   describe("LD nn, n", () => {
     test("LD B, n", () => {
-      expect(instructionFactory.create(0x06)).toBeInstanceOf(LoadImmediateIntoRegisterB);
+      expect(instructionFactory.create(0x06)).toBeInstanceOf(LdBN);
     });
 
     test("LD C, n", () => {
-      expect(instructionFactory.create(0x0E)).toBeInstanceOf(LoadImmediateIntoRegisterC);
+      expect(instructionFactory.create(0x0E)).toBeInstanceOf(LdCN);
     });
 
     test("LD D, n", () => {
