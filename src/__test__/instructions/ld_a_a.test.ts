@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LoadRegisterAIntoRegisterA } from "vm/instructions/load_register_a_into_register_a";
+import { LdAA } from "vm/instructions/ld_a_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -25,7 +25,7 @@ describe("LD A, A test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LoadRegisterAIntoRegisterA(new CpuOperation(register, memory));
+    const ld = new LdAA(new CpuOperation(register, memory));
     const cycle = ld.exec();
 
     // 返値(サイクル数)の確認

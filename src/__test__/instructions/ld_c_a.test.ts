@@ -1,15 +1,15 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LoadRegisterBIntoRegisterA } from "vm/instructions/load_register_b_into_register_a";
+import { LdCA } from "vm/instructions/ld_c_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD A, A test", () => {
+describe("LD (C), A test", () => {
   let buffer: ArrayBuffer;
   let register: RegisterSet;
   let memory: Memory;
 
   beforeEach(() => {
-    buffer = new ArrayBuffer(10);
+    buffer = new ArrayBuffer(0xFFFF);
     memory = new Memory(new Uint8Array(buffer));
 
     register = new RegisterSet();
@@ -23,23 +23,24 @@ describe("LD A, A test", () => {
     register.DE = 0x5566;
     register.HL = 0x7788;
     register.SP = 0x99AA;
+    register.A = 0xAB;  // セットする値(0xAB)
+    register.C = 0x01;  // セットするアドレス(0xFF + 1)
     const prevRegister = register.clone();
 
-    const ld = new LoadRegisterBIntoRegisterA(new CpuOperation(register, memory));
-    const cycle = ld.exec();
+    const instruction = new LdCA(new CpuOperation(register, memory));
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
-    expect(cycle).toBe(4);
-    // 他のレジスタに影響を与えていないことの確認
-    expect(register.F).toBe(prevRegister.F);
+    expect(cycle).toBe(8);
+    // レジスタに影響を与えていないことの確認
+    expect(register.AF).toBe(prevRegister.AF);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
-    // A レジスタの内容が変わっていることの確認
-    expect(register.A).toBe(prevRegister.B);
-    expect(register.AF).toBe(0x3322);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
+    // メモリに値が書き込まれていることの確認
+    expect(memory.getUint8(0xFF00 + 1)).toBe(0xAB);
   });
 });

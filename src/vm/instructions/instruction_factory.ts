@@ -12,10 +12,10 @@ import { LdiHlA } from "./ldi_hl_a";
 import { LdAC } from "./ld_a_c";
 import { LdBN } from "./ld_b_n";
 import { LdCN } from "./ld_c_n";
-import { LoadImmediateIntoRegisterD } from "./load_immediate_into_register_d";
-import { LoadRegisterAIntoAddressRegisterC } from "./load_register_a_into_address_register_c";
-import { LoadRegisterAIntoRegisterA } from "./load_register_a_into_register_a";
-import { LoadRegisterBIntoRegisterA } from "./load_register_b_into_register_a";
+import { LdDN } from "./ld_d_n";
+import { LdCA } from "./ld_c_a";
+import { LdAA } from "./ld_a_a";
+import { LdAB } from "./ld_a_b";
 import { Nop } from "./nop";
 
 const enum OPCODES {
@@ -28,15 +28,15 @@ const enum OPCODES {
   /** LD C, n # n = 8bit immediate value */
   LD_C_N = 0x0E,
   /** LD D, n # n = 8bit immediate value */
-  LOAD_IMMIDIATE_INTO_REGISTER_D = 0x16,
+  LD_D_N = 0x16,
   /** LD A, A */
-  LOAD_REGISTER_A_INTO_REGISTER_A = 0x7F,
+  LD_A_A = 0x7F,
   /** LD A, B */
-  LOAD_REGISTER_B_INTO_REGISTER_A = 0x78,
+  LD_A_B = 0x78,
   /** LD A, (C) */
   LD_A_C = 0xF2,
   /** LD (C), A */
-  LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C = 0xE2,
+  LD_C_A = 0xE2,
   /** LDD A, (HL) */
   LDD_A_HL = 0x3A,
   /** LDD (HL), A */
@@ -78,24 +78,24 @@ export class InstructionFactory {
         instruction = new LdCN(this._operation);
         break;
 
-      case OPCODES.LOAD_IMMIDIATE_INTO_REGISTER_D:
-        instruction = new LoadImmediateIntoRegisterD(this._operation);
+      case OPCODES.LD_D_N:
+        instruction = new LdDN(this._operation);
         break;
 
-      case OPCODES.LOAD_REGISTER_A_INTO_REGISTER_A:
-        instruction = new LoadRegisterAIntoRegisterA(this._operation);
+      case OPCODES.LD_A_A:
+        instruction = new LdAA(this._operation);
         break;
 
-      case OPCODES.LOAD_REGISTER_B_INTO_REGISTER_A:
-        instruction = new LoadRegisterBIntoRegisterA(this._operation);
+      case OPCODES.LD_A_B:
+        instruction = new LdAB(this._operation);
         break;
 
       case OPCODES.LD_A_C:
         instruction = new LdAC(this._operation);
         break;
 
-      case OPCODES.LOAD_REGISTER_A_INTO_ADDRESS_REGISTER_C:
-        instruction = new LoadRegisterAIntoAddressRegisterC(this._operation);
+      case OPCODES.LD_C_A:
+        instruction = new LdCA(this._operation);
         break;
 
       case OPCODES.LDD_A_HL:

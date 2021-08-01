@@ -1,6 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
 import { LdhNA } from "vm/instructions/ldh_n_a";
-import { LoadRegisterAIntoAddressRegisterC } from "vm/instructions/load_register_a_into_address_register_c";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 

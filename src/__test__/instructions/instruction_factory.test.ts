@@ -8,10 +8,10 @@ import { LdiHlA } from "vm/instructions/ldi_hl_a";
 import { LdAC } from "vm/instructions/ld_a_c";
 import { LdBN } from "vm/instructions/ld_b_n";
 import { LdCN } from "vm/instructions/ld_c_n";
-import { LoadImmediateIntoRegisterD } from "vm/instructions/load_immediate_into_register_d";
-import { LoadRegisterAIntoAddressRegisterC } from "vm/instructions/load_register_a_into_address_register_c";
-import { LoadRegisterAIntoRegisterA } from "vm/instructions/load_register_a_into_register_a";
-import { LoadRegisterBIntoRegisterA } from "vm/instructions/load_register_b_into_register_a";
+import { LdDN } from "vm/instructions/ld_d_n";
+import { LdCA } from "vm/instructions/ld_c_a";
+import { LdAA } from "vm/instructions/ld_a_a";
+import { LdAB } from "vm/instructions/ld_a_b";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -32,17 +32,17 @@ describe("instruction factory test", () => {
     });
 
     test("LD D, n", () => {
-      expect(instructionFactory.create(0x16)).toBeInstanceOf(LoadImmediateIntoRegisterD);
+      expect(instructionFactory.create(0x16)).toBeInstanceOf(LdDN);
     });
   });
 
   describe("LD r1, r2", () => {
     test("LD A, A", () => {
-      expect(instructionFactory.create(0x7F)).toBeInstanceOf(LoadRegisterAIntoRegisterA);
+      expect(instructionFactory.create(0x7F)).toBeInstanceOf(LdAA);
     });
 
     test("LD A, B", () => {
-      expect(instructionFactory.create(0x78)).toBeInstanceOf(LoadRegisterBIntoRegisterA);
+      expect(instructionFactory.create(0x78)).toBeInstanceOf(LdAB);
     });
   });
 
@@ -54,7 +54,7 @@ describe("instruction factory test", () => {
 
   describe("LD (C), A", () => {
     test("LD (C), A", () => {
-      expect(instructionFactory.create(0xE2)).toBeInstanceOf(LoadRegisterAIntoAddressRegisterC);
+      expect(instructionFactory.create(0xE2)).toBeInstanceOf(LdCA);
     });
   });
 

@@ -10,9 +10,10 @@ class Operands {
 }
 
 /**
+ * LD D, n
  * Dレジスタに 8bit の即値を代入する命令
  */
-export class LoadImmediateIntoRegisterD implements Instruction {
+export class LdDN implements Instruction {
   public static readonly CYCLE = 8;
 
   private readonly _operation: CpuOperation;
@@ -29,6 +30,6 @@ export class LoadImmediateIntoRegisterD implements Instruction {
     this._operation.assignD(this._operand.value);
     this._operation.addProgramCounter(OPCODE_BYTE + IMMEDIATE_1BYTE);
 
-    return LoadImmediateIntoRegisterD.CYCLE;
+    return LdDN.CYCLE;
   }
 }
