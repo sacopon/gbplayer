@@ -29,6 +29,10 @@ export class CpuOperation {
     this._register.D = value;
   }
 
+  public assignE(value: number) {
+    this._register.E = value;
+  }
+
   public getA() {
     return this._register.A;
   }

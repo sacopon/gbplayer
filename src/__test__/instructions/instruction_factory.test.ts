@@ -14,6 +14,7 @@ import { LdAA } from "vm/instructions/ld_a_a";
 import { LdAB } from "vm/instructions/ld_a_b";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
+import { LdEN } from "vm/instructions/ld_e_n";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -33,6 +34,10 @@ describe("instruction factory test", () => {
 
     test("LD D, n", () => {
       expect(instructionFactory.create(0x16)).toBeInstanceOf(LdDN);
+    });
+
+    test("LD E, n", () => {
+      expect(instructionFactory.create(0x1E)).toBeInstanceOf(LdEN);
     });
   });
 
