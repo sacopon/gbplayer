@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "./instruction";
+import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "../instruction";
 
 class Operands {
   public readonly value: number;

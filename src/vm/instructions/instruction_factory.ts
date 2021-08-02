@@ -10,16 +10,16 @@ import { LdhNA } from "./ldh_n_a";
 import { LdiAHl } from "./ldi_a_hl";
 import { LdiHlA } from "./ldi_hl_a";
 import { LdAC } from "./ld_a_c";
-import { LdBN } from "./ld_b_n";
-import { LdCN } from "./ld_c_n";
-import { LdDN } from "./ld_d_n";
+import { LdBN } from "./ld_r_n/ld_b_n";
+import { LdCN } from "./ld_r_n/ld_c_n";
+import { LdDN } from "./ld_r_n/ld_d_n";
 import { LdCA } from "./ld_c_a";
 import { LdAA } from "./ld_a_a";
 import { LdAB } from "./ld_a_b";
 import { Nop } from "./nop";
-import { LdEN } from "./ld_e_n";
-import { LdHN } from "./ld_h_n";
-import { LdLN } from "./ld_l_n";
+import { LdEN } from "./ld_r_n/ld_e_n";
+import { LdHN } from "./ld_r_n/ld_h_n";
+import { LdLN } from "./ld_r_n/ld_l_n";
 
 const enum OPCODES {
   /** NOP */

@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "./instruction";
+import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "../instruction";
 
 class Operands {
   public readonly value: number;
@@ -10,10 +10,10 @@ class Operands {
 }
 
 /**
- * LD D, n
- * Dレジスタに 8bit の即値を代入する命令
+ * LD L, n
+ * Lレジスタに 8bit の即値を代入する命令
  */
-export class LdDN implements Instruction {
+export class LdLN implements Instruction {
   public static readonly CYCLE = 8;
 
   private readonly _operation: CpuOperation;
@@ -27,9 +27,9 @@ export class LdDN implements Instruction {
   }
 
   public exec() {
-    this._operation.assignD(this._operand.value);
+    this._operation.assignL(this._operand.value);
     this._operation.addProgramCounter(OPCODE_BYTE + IMMEDIATE_1BYTE);
 
-    return LdDN.CYCLE;
+    return LdLN.CYCLE;
   }
 }

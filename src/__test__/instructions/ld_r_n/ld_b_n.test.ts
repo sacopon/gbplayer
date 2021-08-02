@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdBN } from "vm/instructions/ld_b_n";
+import { LdBN } from "vm/instructions/ld_r_n/ld_b_n";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 

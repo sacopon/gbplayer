@@ -6,17 +6,17 @@ import { LdhNA } from "vm/instructions/ldh_n_a";
 import { LdiAHl } from "vm/instructions/ldi_a_hl";
 import { LdiHlA } from "vm/instructions/ldi_hl_a";
 import { LdAC } from "vm/instructions/ld_a_c";
-import { LdBN } from "vm/instructions/ld_b_n";
-import { LdCN } from "vm/instructions/ld_c_n";
-import { LdDN } from "vm/instructions/ld_d_n";
+import { LdBN } from "vm/instructions/ld_r_n/ld_b_n";
+import { LdCN } from "vm/instructions/ld_r_n/ld_c_n";
+import { LdDN } from "vm/instructions/ld_r_n/ld_d_n";
 import { LdCA } from "vm/instructions/ld_c_a";
 import { LdAA } from "vm/instructions/ld_a_a";
 import { LdAB } from "vm/instructions/ld_a_b";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
-import { LdEN } from "vm/instructions/ld_e_n";
-import { LdHN } from "vm/instructions/ld_h_n";
-import { LdLN } from "vm/instructions/ld_l_n";
+import { LdEN } from "vm/instructions/ld_r_n/ld_e_n";
+import { LdHN } from "vm/instructions/ld_r_n/ld_h_n";
+import { LdLN } from "vm/instructions/ld_r_n/ld_l_n";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
