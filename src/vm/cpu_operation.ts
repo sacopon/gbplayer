@@ -33,6 +33,10 @@ export class CpuOperation {
     this._register.E = value;
   }
 
+  public assignH(value: number) {
+    this._register.H = value;
+  }
+
   public getA() {
     return this._register.A;
   }

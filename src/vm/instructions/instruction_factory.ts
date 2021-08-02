@@ -18,6 +18,7 @@ import { LdAA } from "./ld_a_a";
 import { LdAB } from "./ld_a_b";
 import { Nop } from "./nop";
 import { LdEN } from "./ld_e_n";
+import { LdHN } from "./ld_h_n";
 
 const enum OPCODES {
   /** NOP */
@@ -32,6 +33,8 @@ const enum OPCODES {
   LD_D_N = 0x16,
   /** LD E, n # n = 8bit immediate value */
   LD_E_N = 0x1E,
+  /** LD H, n # n = 8bit immediate value */
+  LD_H_N = 0x26,
   /** LD A, A */
   LD_A_A = 0x7F,
   /** LD A, B */
@@ -89,6 +92,10 @@ export class InstructionFactory {
         instruction = new LdEN(this._operation);
         break;
   
+      case OPCODES.LD_H_N:
+        instruction = new LdHN(this._operation);
+        break;
+
       case OPCODES.LD_A_A:
         instruction = new LdAA(this._operation);
         break;
