@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { JpNn } from "vm/instructions/jp_nn";
+import { JpNn } from "vm/instructions/jump/jp_nn";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -14,6 +14,12 @@ describe("jp test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(JpNn);
+  });
   test("exec", () => {
     const view = new DataView(buffer);
     view.setUint16(0, 0x1234, true);
@@ -26,8 +32,9 @@ describe("jp test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const jp = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
-    const cycle = jp.exec();
+    const instruction = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    instruction.fetch();
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(16);

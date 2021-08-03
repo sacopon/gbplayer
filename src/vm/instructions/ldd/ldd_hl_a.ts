@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPCODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "../instruction";
 
 /**
  * LDD (HL), A
@@ -12,6 +12,14 @@ export class LddHlA implements Instruction {
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+  }
+
+  public clone() {
+    return new LddHlA(this._operation);
+  }
+
+  public fetch() {
+    // do nothing
   }
 
   public exec() {

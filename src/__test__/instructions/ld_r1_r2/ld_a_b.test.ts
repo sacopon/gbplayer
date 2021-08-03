@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdAA } from "vm/instructions/ld_a_a";
+import { LdAB } from "vm/instructions/ld_r1_r2/ld_a_b";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -16,6 +16,12 @@ describe("LD A, A test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LdAB(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdAB);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -25,18 +31,21 @@ describe("LD A, A test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LdAA(new CpuOperation(register, memory));
-    const cycle = ld.exec();
+    const instruction = new LdAB(new CpuOperation(register, memory));
+    instruction.fetch();
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(4);
     // 他のレジスタに影響を与えていないことの確認
+    expect(register.F).toBe(prevRegister.F);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
-    // A レジスタの内容が変わっていないことの確認
-    expect(register.AF).toBe(prevRegister.AF);
+    // A レジスタの内容が変わっていることの確認
+    expect(register.A).toBe(prevRegister.B);
+    expect(register.AF).toBe(0x3322);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });

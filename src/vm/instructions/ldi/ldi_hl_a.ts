@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPCODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "../instruction";
 
 /**
  * Aレジスタに格納されている値をHLレジスタが指すメモリ上の番地に代入する命令
@@ -11,6 +11,14 @@ export class LdiHlA implements Instruction {
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+  }
+
+  public clone() {
+    return new LdiHlA(this._operation);
+  }
+
+  public fetch() {
+    // do nothing
   }
 
   public exec() {

@@ -1,10 +1,9 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LddHlA } from "vm/instructions/ldd_hl_a";
-import { LdiHlA } from "vm/instructions/ldi_hl_a";
+import { LddAHl } from "vm/instructions/ldd/ldd_a_hl";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LDI (HL), A test", () => {
+describe("LDD A, (HL) test", () => {
   let register: RegisterSet;
 
   beforeEach(() => {
@@ -12,6 +11,12 @@ describe("LDI (HL), A test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LddAHl(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LddAHl);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -21,31 +26,31 @@ describe("LDI (HL), A test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
+    // 読み出す予定の値を設定
     const buffer = new ArrayBuffer(3);
     const view = new DataView(buffer);
+    view.setUint8(1, 0xAB);
     const memory = new Memory(new Uint8Array(buffer));
 
-    // 書き込む予定のアドレス
+    // 読み出すアドレスを設定
     register.HL = prevRegister.HL = 1;
 
-    // 書き込む予定の値を設定
-    register.A = prevRegister.A = 0xAB;
-    expect(register.A).toBe(0xAB);
-
-    const instruction = new LdiHlA(new CpuOperation(register, memory));
+    const instruction = new LddAHl(new CpuOperation(register, memory));
+    instruction.fetch();
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(8);
     // 他のレジスタに影響を与えていないことの確認
-    expect(register.AF).toBe(prevRegister.AF);
+    expect(register.F).toBe(prevRegister.F);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.SP).toBe(prevRegister.SP);
-    // 指定の番地に値が設定されていることの確認
-    expect(memory.getUint8(1)).toBe(0xAB);
-    // HL レジスタがインクリメントされていることの確認
-    expect(register.HL).toBe(prevRegister.HL + 1);
+    // A レジスタの内容が変わっていることの確認
+    expect(register.A).toBe(0xAB);
+    expect(register.AF).toBe(0xAB22);
+    // HL レジスタがデクリメントされていることの確認
+    expect(register.HL).toBe(prevRegister.HL - 1);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });

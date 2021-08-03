@@ -14,6 +14,13 @@ describe("LD E, n test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LdEN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdEN);
+  });
+
   test("exec", () => {
     const view = new DataView(buffer);
     view.setUint8(0, 0xAB);
@@ -26,8 +33,9 @@ describe("LD E, n test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LdEN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
-    const cycle = ld.exec();
+    const instruction = new LdEN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    instruction.fetch();
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(8);

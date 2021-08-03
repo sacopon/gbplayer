@@ -1,9 +1,9 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdiAHl } from "vm/instructions/ldi_a_hl";
+import { LdAC } from "vm/instructions/ld_r1_r2/ld_a_c";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LDI A, (HL) test", () => {
+describe("LD A, (C) test", () => {
   let register: RegisterSet;
 
   beforeEach(() => {
@@ -11,6 +11,12 @@ describe("LDI A, (HL) test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LdAC(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdAC);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -21,15 +27,16 @@ describe("LDI A, (HL) test", () => {
     const prevRegister = register.clone();
 
     // 読み出す予定の値を設定
-    const buffer = new ArrayBuffer(3);
+    const buffer = new ArrayBuffer(0xFF01 + 1);
     const view = new DataView(buffer);
-    view.setUint8(1, 0xAB);
+    view.setUint8(0xFF00 + 1, 0xAB);
     const memory = new Memory(new Uint8Array(buffer));
 
-    // 読み出すアドレスを設定
-    register.HL = prevRegister.HL = 1;
+    // 読み出すアドレス(0xFFからのオフセット)を設定
+    register.C = prevRegister.C = 0x01;
 
-    const instruction = new LdiAHl(new CpuOperation(register, memory));
+    const instruction = new LdAC(new CpuOperation(register, memory));
+    instruction.fetch();
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
@@ -38,12 +45,11 @@ describe("LDI A, (HL) test", () => {
     expect(register.F).toBe(prevRegister.F);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
+    expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
     // A レジスタの内容が変わっていることの確認
     expect(register.A).toBe(0xAB);
     expect(register.AF).toBe(0xAB22);
-    // HL レジスタがインクリメントされていることの確認
-    expect(register.HL).toBe(prevRegister.HL + 1);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });

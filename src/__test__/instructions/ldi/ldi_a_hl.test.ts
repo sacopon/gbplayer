@@ -1,21 +1,22 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdAB } from "vm/instructions/ld_a_b";
+import { LdiAHl } from "vm/instructions/ldi/ldi_a_hl";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD A, A test", () => {
-  let buffer: ArrayBuffer;
+describe("LDI A, (HL) test", () => {
   let register: RegisterSet;
-  let memory: Memory;
 
   beforeEach(() => {
-    buffer = new ArrayBuffer(10);
-    memory = new Memory(new Uint8Array(buffer));
-
     register = new RegisterSet();
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LdiAHl(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdiAHl);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -25,20 +26,31 @@ describe("LD A, A test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const ld = new LdAB(new CpuOperation(register, memory));
-    const cycle = ld.exec();
+    // 読み出す予定の値を設定
+    const buffer = new ArrayBuffer(3);
+    const view = new DataView(buffer);
+    view.setUint8(1, 0xAB);
+    const memory = new Memory(new Uint8Array(buffer));
+
+    // 読み出すアドレスを設定
+    register.HL = prevRegister.HL = 1;
+
+    const instruction = new LdiAHl(new CpuOperation(register, memory));
+    instruction.fetch();
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
-    expect(cycle).toBe(4);
+    expect(cycle).toBe(8);
     // 他のレジスタに影響を与えていないことの確認
     expect(register.F).toBe(prevRegister.F);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
-    expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
     // A レジスタの内容が変わっていることの確認
-    expect(register.A).toBe(prevRegister.B);
-    expect(register.AF).toBe(0x3322);
+    expect(register.A).toBe(0xAB);
+    expect(register.AF).toBe(0xAB22);
+    // HL レジスタがインクリメントされていることの確認
+    expect(register.HL).toBe(prevRegister.HL + 1);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });

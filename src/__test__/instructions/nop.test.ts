@@ -12,6 +12,12 @@ describe("nop test", () => {
     register = new RegisterSet();
   });
 
+  test("clone", () => {
+    const instruction = new Nop(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(Nop);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -21,8 +27,9 @@ describe("nop test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const nop = new Nop(new CpuOperation(register, memory));
-    const cycle = nop.exec();
+    const instruction = new Nop(new CpuOperation(register, memory));
+    instruction.fetch();
+    const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
     expect(cycle).toBe(4);

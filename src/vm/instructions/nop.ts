@@ -1,6 +1,4 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Memory } from "vm/memory";
-import { RegisterSet } from "vm/register/register_set";
 import { Instruction, OPCODE_BYTE } from "./instruction";
 
 export class Nop implements Instruction {
@@ -10,6 +8,14 @@ export class Nop implements Instruction {
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+  }
+
+  public clone() {
+    return new Nop(this._operation);
+  }
+
+  public fetch() {
+    // do nothing
   }
 
   public exec() {

@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPCODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "../instruction";
 
 /**
  * LD (C), A
@@ -13,6 +13,14 @@ export class LdCA implements Instruction {
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+  }
+
+  public clone() {
+    return new LdCA(this._operation);
+  }
+
+  public fetch() {
+    // do nothing
   }
 
   public exec() {

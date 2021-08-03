@@ -1,10 +1,10 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction } from "./instruction";
+import { Instruction } from "../instruction";
 
 class Operands {
   public readonly jumpPos: number;
 
-  public constructor(jumpPos: number) {
+  public constructor(jumpPos: number = 0) {
     this.jumpPos = jumpPos;
   }
 }
@@ -17,13 +17,22 @@ export class JpNn implements Instruction {
   public static readonly CYCLE = 16;  // TODO: 12? 要調査
 
   private readonly _operation: CpuOperation;
-  private readonly _operand: Operands;
+  private _operand: Operands;
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+    this._operand = new Operands();
+  }
 
-    const jumpPos = this._operation.readOperandUint16();
-    this._operand = new Operands(jumpPos);
+  public clone() {
+    const result = new JpNn(this._operation);
+    result._operand = new Operands(this._operand.jumpPos);
+
+    return result;
+  }
+
+  public fetch() {
+    this._operand = new Operands(this._operation.readOperandUint16());
   }
 
   public exec() {

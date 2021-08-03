@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdhAN } from "vm/instructions/ldh_a_n";
+import { LdhAN } from "vm/instructions/ldh/ldh_a_n";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -8,6 +8,13 @@ describe("LDH A, (n) test", () => {
 
   beforeEach(() => {
     register = new RegisterSet();
+  });
+
+  test("clone", () => {
+    const instruction = new LdhAN(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdhAN);
   });
 
   test("exec", () => {
@@ -27,6 +34,7 @@ describe("LDH A, (n) test", () => {
     const memory = new Memory(new Uint8Array(buffer));
 
     const instruction = new LdhAN(new CpuOperation(register, memory));
+    instruction.fetch();
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認

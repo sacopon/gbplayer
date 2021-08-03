@@ -4,7 +4,7 @@ import { IMMEDIATE_1BYTE, Instruction, OPCODE_BYTE } from "../instruction";
 class Operands {
   public readonly value: number;
 
-  public constructor(value: number) {
+  public constructor(value: number = 0) {
     this.value = value;
   }
 }
@@ -17,13 +17,22 @@ export class LdHN implements Instruction {
   public static readonly CYCLE = 8;
 
   private readonly _operation: CpuOperation;
-  private readonly _operand: Operands;
+  private _operand: Operands;
 
   constructor(operation: CpuOperation) {
     this._operation = operation;
+    this._operand = new Operands();
+  }
 
-    const value = this._operation.readOperandUint8();
-    this._operand = new Operands(value);
+  public clone() {
+    const result = new LdHN(this._operation);
+    result._operand = new Operands(this._operand.value);
+
+    return result;
+  }
+
+  public fetch() {
+    this._operand = new Operands(this._operation.readOperandUint8());
   }
 
   public exec() {

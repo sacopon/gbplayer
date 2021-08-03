@@ -85,6 +85,9 @@ export class GameBoy {
     const factory = new InstructionFactory(this._register, this._memory);
 
     const opcode = this._memory.getUint8(this._register.PC);
-    return factory.create(opcode);
+    const instruction = factory.create(opcode);
+
+    instruction.fetch();
+    return instruction;
   }
 }

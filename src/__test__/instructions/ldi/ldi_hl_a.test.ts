@@ -1,9 +1,9 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LddHlA } from "vm/instructions/ldd_hl_a";
+import { LdiHlA } from "vm/instructions/ldi/ldi_hl_a";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LDD (HL), A test", () => {
+describe("LDI (HL), A test", () => {
   let register: RegisterSet;
 
   beforeEach(() => {
@@ -11,6 +11,12 @@ describe("LDD (HL), A test", () => {
     register.PC = 0;
   });
 
+  test("clone", () => {
+    const instruction = new LdiHlA(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const cloned = instruction.clone();
+
+    expect(cloned).toBeInstanceOf(LdiHlA);
+  });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
@@ -31,7 +37,7 @@ describe("LDD (HL), A test", () => {
     register.A = prevRegister.A = 0xAB;
     expect(register.A).toBe(0xAB);
 
-    const instruction = new LddHlA(new CpuOperation(register, memory));
+    const instruction = new LdiHlA(new CpuOperation(register, memory));
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
@@ -43,8 +49,8 @@ describe("LDD (HL), A test", () => {
     expect(register.SP).toBe(prevRegister.SP);
     // 指定の番地に値が設定されていることの確認
     expect(memory.getUint8(1)).toBe(0xAB);
-    // HL レジスタがデクリメントされていることの確認
-    expect(register.HL).toBe(prevRegister.HL - 1);
+    // HL レジスタがインクリメントされていることの確認
+    expect(register.HL).toBe(prevRegister.HL + 1);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });
