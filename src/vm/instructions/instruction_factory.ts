@@ -24,8 +24,6 @@ import { LdLN } from "./ld_r_n/ld_l_n";
 const enum OPCODES {
   /** NOP */
   NOP = 0,
-  /** JP nn # nn = 16bit address */
-  JP_NN = 0xC3,
   /** LD B, n # n = 8bit immediate value */
   LD_B_N = 0x06,
   /** LD C, n # n = 8bit immediate value */
@@ -34,40 +32,71 @@ const enum OPCODES {
   LD_D_N = 0x16,
   /** LD E, n # n = 8bit immediate value */
   LD_E_N = 0x1E,
+  /** LDI (HL), A */
+  LDI_HL_A = 0x22,
   /** LD H, n # n = 8bit immediate value */
   LD_H_N = 0x26,
+  /** LDI A, (HL) */
+  LDI_A_HL = 0x2A,
   /** LD L, n # n = 8bit immediate value */
   LD_L_N = 0x2E,
+  /** LDD (HL), A */
+  LDD_HL_A = 0x32,
+  /** LDD A, (HL) */
+  LDD_A_HL = 0x3A,
   /** LD A, A */
   LD_A_A = 0x7F,
   /** LD A, B */
   LD_A_B = 0x78,
-  /** LD A, (C) */
-  LD_A_C = 0xF2,
+  /** JP nn # nn = 16bit address */
+  JP_NN = 0xC3,
+  /** LDH A, (n) */
+  LDH_A_N = 0xF0,
+  /** LDH (n), A */
+  LDH_N_A = 0xE0,
   /** LD (C), A */
   LD_C_A = 0xE2,
-  /** LDD A, (HL) */
-  LDD_A_HL = 0x3A,
-  /** LDD (HL), A */
-  LDD_HL_A = 0x32,
-  /** LDI A, (HL) */
-  LDI_ADDRESS_INTO_REGISTER = 0x2A,
-  /** LDI (HL), A */
-  LDI_REGISTER_INTO_ADDRESS = 0x22,
-  /** LDH (n), A */
-  LDH_ADDRESS_INTO_REGISTER = 0xE0,
-  /** LDH A, (n) */
-  LDH_REGISTER_INTO_ADDRESS = 0xF0,
+  /** LD A, (C) */
+  LD_A_C = 0xF2,
 };
 
 export class InstructionFactory {
   private _operation: CpuOperation;
+  private _allInstructions: Instruction[];
 
   constructor(register: RegisterSet, memory: Memory) {
     this._operation = new CpuOperation(register, memory);
+
+    this._allInstructions = [];
+    this._allInstructions[OPCODES.NOP] = new Nop(this._operation);
+    this._allInstructions[OPCODES.LD_B_N] = new LdBN(this._operation);
+    this._allInstructions[OPCODES.LD_C_N] = new LdCN(this._operation);
+    this._allInstructions[OPCODES.LD_D_N] = new LdDN(this._operation);
+    this._allInstructions[OPCODES.LD_E_N] = new LdEN(this._operation);
+    this._allInstructions[OPCODES.LDI_HL_A] = new LdiHlA(this._operation);
+    this._allInstructions[OPCODES.LD_H_N] = new LdHN(this._operation);
+    this._allInstructions[OPCODES.LDI_A_HL] = new LdiAHl(this._operation);
+    this._allInstructions[OPCODES.LD_L_N] = new LdLN(this._operation);
+    this._allInstructions[OPCODES.LDD_HL_A] = new LddHlA(this._operation);
+    this._allInstructions[OPCODES.LDD_A_HL] = new LddAHl(this._operation);
+    this._allInstructions[OPCODES.LD_A_A] = new LdAA(this._operation);
+    this._allInstructions[OPCODES.LD_A_B] = new LdAB(this._operation);
+    this._allInstructions[OPCODES.JP_NN] = new JpNn(this._operation);
+    this._allInstructions[OPCODES.LDH_A_N] = new LdhAN(this._operation);
+    this._allInstructions[OPCODES.LDH_N_A] = new LdhNA(this._operation);
+    this._allInstructions[OPCODES.LD_C_A] = new LdCA(this._operation);
+    this._allInstructions[OPCODES.LD_A_C] = new LdAC(this._operation);
   }
 
   public create(opcode: number): Instruction {
+    if (!this._allInstructions[opcode]) {
+      throw new Error("no implementation");
+    }
+
+    return this._allInstructions[opcode].clone();
+  }
+
+  public create2(opcode: number): Instruction {
     let instruction: Instruction | null = null;
 
     switch (opcode) {
@@ -127,19 +156,19 @@ export class InstructionFactory {
         instruction = new LddHlA(this._operation);
         break;
 
-      case OPCODES.LDI_ADDRESS_INTO_REGISTER:
+      case OPCODES.LDI_A_HL:
         instruction = new LdiAHl(this._operation);
         break;
 
-      case OPCODES.LDI_REGISTER_INTO_ADDRESS:
+      case OPCODES.LDI_HL_A:
         instruction = new LdiHlA(this._operation);
         break;
 
-      case OPCODES.LDH_ADDRESS_INTO_REGISTER:
+      case OPCODES.LDH_N_A:
         instruction = new LdhNA(this._operation);
         break;
 
-      case OPCODES.LDH_REGISTER_INTO_ADDRESS:
+      case OPCODES.LDH_A_N:
         instruction = new LdhAN(this._operation);
         break;
 
