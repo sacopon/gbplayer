@@ -18,6 +18,7 @@ import { LdEN } from "vm/instructions/ld_r_n/ld_e_n";
 import { LdHN } from "vm/instructions/ld_r_n/ld_h_n";
 import { LdLN } from "vm/instructions/ld_r_n/ld_l_n";
 import { LdAC } from "vm/instructions/ld_r1_r2/ld_a_c";
+import { LdAD } from "vm/instructions/ld_r1_r2/ld_a_d";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -63,6 +64,10 @@ describe("instruction factory test", () => {
 
     test("LD A, C", () => {
       expect(instructionFactory.create(0x79)).toBeInstanceOf(LdAC);
+    });
+
+    test("LD A, D", () => {
+      expect(instructionFactory.create(0x7A)).toBeInstanceOf(LdAD);
     });
   });
 
