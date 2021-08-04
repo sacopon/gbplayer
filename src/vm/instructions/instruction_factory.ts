@@ -20,6 +20,7 @@ import { Nop } from "./nop";
 import { LdEN } from "./ld_r_n/ld_e_n";
 import { LdHN } from "./ld_r_n/ld_h_n";
 import { LdLN } from "./ld_r_n/ld_l_n";
+import { LdAC } from "./ld_r1_r2/ld_a_c";
 
 export class InstructionFactory {
   private _operation: CpuOperation;
@@ -42,6 +43,7 @@ export class InstructionFactory {
     this._allInstructions[0x3A] = new LddAHl(this._operation);
     this._allInstructions[0x7F] = new LdAA(this._operation);
     this._allInstructions[0x78] = new LdAB(this._operation);
+    this._allInstructions[0x79] = new LdAC(this._operation);
     this._allInstructions[0xC3] = new JpNn(this._operation);
     this._allInstructions[0xF0] = new LdhAN(this._operation);
     this._allInstructions[0xE0] = new LdhNA(this._operation);
