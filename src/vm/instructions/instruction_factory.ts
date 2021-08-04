@@ -23,6 +23,7 @@ import { LdLN } from "./ld_r_n/ld_l_n";
 import { LdAC } from "./ld_r1_r2/ld_a_c";
 import { LdAD } from "./ld_r1_r2/ld_a_d";
 import { LdAE } from "./ld_r1_r2/ld_a_e";
+import { LdAH } from "./ld_r1_r2/ld_a_h";
 
 export class InstructionFactory {
   private _operation: CpuOperation;
@@ -48,6 +49,7 @@ export class InstructionFactory {
     this._allInstructions[0x79] = new LdAC(this._operation);
     this._allInstructions[0x7A] = new LdAD(this._operation);
     this._allInstructions[0x7B] = new LdAE(this._operation);
+    this._allInstructions[0x7C] = new LdAH(this._operation);
     this._allInstructions[0xC3] = new JpNn(this._operation);
     this._allInstructions[0xF0] = new LdhAN(this._operation);
     this._allInstructions[0xE0] = new LdhNA(this._operation);
