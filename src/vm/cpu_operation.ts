@@ -57,6 +57,10 @@ export class CpuOperation {
     return this._register.D;
   }
 
+  public getE() {
+    return this._register.E;
+  }
+
   public getHL() {
     return this._register.HL;
   }
