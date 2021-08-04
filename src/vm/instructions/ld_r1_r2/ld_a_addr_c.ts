@@ -6,7 +6,7 @@ import { Instruction, OPCODE_BYTE } from "../instruction";
  * [0xFF00 + Cレジスタに設定された値]が指すメモリ上の番地に設定されている値(1バイト)を
  * Aレジスタに代入する命令
  */
-export class LdAC implements Instruction {
+export class LdAAddrC implements Instruction {
   public static readonly CYCLE = 8;
   private static readonly _LOAD_OFFSET = 0xFF00;
 
@@ -17,7 +17,7 @@ export class LdAC implements Instruction {
   }
 
   public clone() {
-    return new LdAC(this._operation);
+    return new LdAAddrC(this._operation);
   }
 
   public fetch() {
@@ -25,9 +25,9 @@ export class LdAC implements Instruction {
   }
 
   public exec() {
-    this._operation.assignA(this._operation.readUint8(LdAC._LOAD_OFFSET + this._operation.getC()));
+    this._operation.assignA(this._operation.readUint8(LdAAddrC._LOAD_OFFSET + this._operation.getC()));
     this._operation.addProgramCounter(OPCODE_BYTE);
 
-    return LdAC.CYCLE;
+    return LdAAddrC.CYCLE;
   }
 }

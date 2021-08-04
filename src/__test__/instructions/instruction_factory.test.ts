@@ -5,7 +5,7 @@ import { LdhAN } from "vm/instructions/ldh/ldh_a_n";
 import { LdhNA } from "vm/instructions/ldh/ldh_n_a";
 import { LdiAHl } from "vm/instructions/ldi/ldi_a_hl";
 import { LdiHlA } from "vm/instructions/ldi/ldi_hl_a";
-import { LdAC } from "vm/instructions/ld_r1_r2/ld_a_c";
+import { LdAAddrC } from "vm/instructions/ld_r1_r2/ld_a_addr_c";
 import { LdBN } from "vm/instructions/ld_r_n/ld_b_n";
 import { LdCN } from "vm/instructions/ld_r_n/ld_c_n";
 import { LdDN } from "vm/instructions/ld_r_n/ld_d_n";
@@ -63,7 +63,7 @@ describe("instruction factory test", () => {
 
   describe("LD A, (C)", () => {
     test("LD A, (C)", () => {
-      expect(instructionFactory.create(0xF2)).toBeInstanceOf(LdAC);
+      expect(instructionFactory.create(0xF2)).toBeInstanceOf(LdAAddrC);
     });
   });
 

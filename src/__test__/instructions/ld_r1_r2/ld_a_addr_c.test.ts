@@ -1,5 +1,5 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdAC } from "vm/instructions/ld_r1_r2/ld_a_c";
+import { LdAAddrC } from "vm/instructions/ld_r1_r2/ld_a_addr_c";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
@@ -12,10 +12,10 @@ describe("LD A, (C) test", () => {
   });
 
   test("clone", () => {
-    const instruction = new LdAC(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const instruction = new LdAAddrC(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
     const cloned = instruction.clone();
 
-    expect(cloned).toBeInstanceOf(LdAC);
+    expect(cloned).toBeInstanceOf(LdAAddrC);
   });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
@@ -35,7 +35,7 @@ describe("LD A, (C) test", () => {
     // 読み出すアドレス(0xFFからのオフセット)を設定
     register.C = prevRegister.C = 0x01;
 
-    const instruction = new LdAC(new CpuOperation(register, memory));
+    const instruction = new LdAAddrC(new CpuOperation(register, memory));
     instruction.fetch();
     const cycle = instruction.exec();
 
