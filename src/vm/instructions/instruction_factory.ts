@@ -31,6 +31,7 @@ import { LdBD } from "./ld_r1_r2/ld_b_d";
 import { LdBE } from "./ld_r1_r2/ld_b_e";
 import { LdBH } from "./ld_r1_r2/ld_b_h";
 import { LdBL } from "./ld_r1_r2/ld_b_l";
+import { LdAAddrHl } from "./ld_r1_r2/ld_a_addr_hl";
 
 export class InstructionFactory {
   private _operation: CpuOperation;
@@ -64,6 +65,7 @@ export class InstructionFactory {
     this._allInstructions[0x7B] = new LdAE(this._operation);
     this._allInstructions[0x7C] = new LdAH(this._operation);
     this._allInstructions[0x7D] = new LdAL(this._operation);
+    this._allInstructions[0x7E] = new LdAAddrHl(this._operation);
     this._allInstructions[0xC3] = new JpNn(this._operation);
     this._allInstructions[0xF0] = new LdhAN(this._operation);
     this._allInstructions[0xE0] = new LdhNA(this._operation);
