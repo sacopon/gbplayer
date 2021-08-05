@@ -23,6 +23,11 @@ describe("Memory test", () => {
     }
   });
 
+  test("setUint8", () => {
+    memory.setUint8(10, 0xAB);
+    expect(memory.getUint8(10)).toBe(0xAB);
+  });
+
   test("getUint16", () => {
     for (let i = 0; i < size; i += 2) {
       expect(memory.getUint16(i)).toBe(0x1111);

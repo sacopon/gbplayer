@@ -14,14 +14,18 @@ class ROMBank {
 
 export class Memory {
   private readonly _buffer: ArrayBuffer;
+  // private readonly _debugBuffer: Array<number>;
   private readonly _view: DataView;
 
   constructor(romBinary: Uint8Array) {
-    this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
+    this._buffer = new ArrayBuffer(0xFFFF);
+    // this._buffer = new ArrayBuffer(InterruptVectorTable.SIZE + CartridgeHeader.SIZE + ROMBank.SIZE * 2);
+    // this._debugBuffer = new Array(this._buffer.byteLength);
     this._view = new DataView(this._buffer);
 
     for (let i = 0; i < this._buffer.byteLength; ++i) {
       this._view.setUint8(i, romBinary[i]);
+      // this._debugBuffer[i] = romBinary[i];
     }
   }
 
@@ -31,6 +35,10 @@ export class Memory {
 
   public getUint8(pos: number) {
     return this._view.getUint8(pos);
+  }
+
+  public setUint8(pos: number, value: number) {
+    return this._view.setUint8(pos, value);
   }
 
   /**

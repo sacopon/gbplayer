@@ -1,22 +1,26 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Nop } from "vm/instructions/nop";
+import { LdBB } from "vm/instructions/ld_r1_r2/ld_b_b";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("nop test", () => {
-  let memory: Memory;
+describe("LD B, B test", () => {
+  let buffer: ArrayBuffer;
   let register: RegisterSet;
+  let memory: Memory;
 
   beforeEach(() => {
-    memory = new Memory(new Uint8Array(new ArrayBuffer(10)));
+    buffer = new ArrayBuffer(10);
+    memory = new Memory(new Uint8Array(buffer));
+
     register = new RegisterSet();
+    register.PC = 0;
   });
 
   test("clone", () => {
-    const instruction = new Nop(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const instruction = new LdBB(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cloned = instruction.clone();
 
-    expect(cloned).toBeInstanceOf(Nop);
+    expect(cloned).toBeInstanceOf(LdBB);
   });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
@@ -27,7 +31,7 @@ describe("nop test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const instruction = new Nop(new CpuOperation(register, memory));
+    const instruction = new LdBB(new CpuOperation(register, memory));
     instruction.fetch();
     const cycle = instruction.exec();
 

@@ -1,24 +1,30 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Nop } from "vm/instructions/nop";
+import { LdBN } from "vm/instructions/ld_r_n/ld_b_n";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("nop test", () => {
-  let memory: Memory;
+describe("LD B, n test", () => {
+  let buffer: ArrayBuffer;
   let register: RegisterSet;
 
   beforeEach(() => {
-    memory = new Memory(new Uint8Array(new ArrayBuffer(10)));
+    buffer = new ArrayBuffer(10);
+
     register = new RegisterSet();
+    register.PC = 0;
   });
 
   test("clone", () => {
-    const instruction = new Nop(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const instruction = new LdBN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cloned = instruction.clone();
 
-    expect(cloned).toBeInstanceOf(Nop);
+    expect(cloned).toBeInstanceOf(LdBN);
   });
+
   test("exec", () => {
+    const view = new DataView(buffer);
+    view.setUint8(0, 0xAB);
+
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
     register.BC = 0x3344;
@@ -27,19 +33,22 @@ describe("nop test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const instruction = new Nop(new CpuOperation(register, memory));
+    const instruction = new LdBN(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     instruction.fetch();
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
-    expect(cycle).toBe(4);
+    expect(cycle).toBe(8);
     // 他のレジスタに影響を与えていないことの確認
     expect(register.AF).toBe(prevRegister.AF);
-    expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
+    // 指定のレジスタの値が変わっていることの確認
+    expect(register.BC).toBe(0xAB44);
+    expect(register.B).toBe(0xAB);
+    expect(register.C).toBe(0x44);
     // プログラムカウンタが進んでいることの確認
-    expect(register.PC).toBe(prevRegister.PC + 1);
+    expect(register.PC).toBe(prevRegister.PC + 2);
   });
 });

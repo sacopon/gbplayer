@@ -1,7 +1,11 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Instruction, OPCODE_BYTE } from "./instruction";
+import { Instruction, OPCODE_BYTE } from "../instruction";
 
-export class Nop implements Instruction {
+/**
+ * LD B, E
+ * BレジスタにEレジスタの内容を代入する命令
+ */
+export class LdBE implements Instruction {
   public static readonly CYCLE = 4;
 
   private readonly _operation: CpuOperation;
@@ -11,7 +15,7 @@ export class Nop implements Instruction {
   }
 
   public clone() {
-    return new Nop(this._operation);
+    return new LdBE(this._operation);
   }
 
   public fetch() {
@@ -19,7 +23,9 @@ export class Nop implements Instruction {
   }
 
   public exec() {
+    this._operation.assignB(this._operation.getE());
     this._operation.addProgramCounter(OPCODE_BYTE);
-    return Nop.CYCLE;
+
+    return LdBE.CYCLE;
   }
 }

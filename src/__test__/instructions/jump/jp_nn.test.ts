@@ -1,24 +1,29 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { Nop } from "vm/instructions/nop";
+import { JpNn } from "vm/instructions/jump/jp_nn";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("nop test", () => {
-  let memory: Memory;
+describe("jp test", () => {
+  let buffer: ArrayBuffer;
   let register: RegisterSet;
 
   beforeEach(() => {
-    memory = new Memory(new Uint8Array(new ArrayBuffer(10)));
+    buffer = new ArrayBuffer(10);
+
     register = new RegisterSet();
+    register.PC = 0;
   });
 
   test("clone", () => {
-    const instruction = new Nop(new CpuOperation(register, new Memory(new Uint8Array(new ArrayBuffer(1)))));
+    const instruction = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cloned = instruction.clone();
 
-    expect(cloned).toBeInstanceOf(Nop);
+    expect(cloned).toBeInstanceOf(JpNn);
   });
   test("exec", () => {
+    const view = new DataView(buffer);
+    view.setUint16(0, 0x1234, true);
+
     // レジスタにテスト用の初期値を設定
     register.AF = 0x1122;
     register.BC = 0x3344;
@@ -27,19 +32,19 @@ describe("nop test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const instruction = new Nop(new CpuOperation(register, memory));
+    const instruction = new JpNn(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     instruction.fetch();
     const cycle = instruction.exec();
 
     // 返値(サイクル数)の確認
-    expect(cycle).toBe(4);
+    expect(cycle).toBe(16);
     // 他のレジスタに影響を与えていないことの確認
     expect(register.AF).toBe(prevRegister.AF);
     expect(register.BC).toBe(prevRegister.BC);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
-    // プログラムカウンタが進んでいることの確認
-    expect(register.PC).toBe(prevRegister.PC + 1);
+    // プログラムカウンタが指定の位置を指していることの確認
+    expect(register.PC).toBe(0x1234);
   });
 });
