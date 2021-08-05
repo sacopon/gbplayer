@@ -28,6 +28,7 @@ import { LdAL } from "./ld_r1_r2/ld_a_l";
 import { LdBB } from "./ld_r1_r2/ld_b_b";
 import { LdBC } from "./ld_r1_r2/ld_b_c";
 import { LdBD } from "./ld_r1_r2/ld_b_d";
+import { LdBE } from "./ld_r1_r2/ld_b_e";
 
 export class InstructionFactory {
   private _operation: CpuOperation;
@@ -51,6 +52,7 @@ export class InstructionFactory {
     this._allInstructions[0x40] = new LdBB(this._operation);
     this._allInstructions[0x41] = new LdBC(this._operation);
     this._allInstructions[0x42] = new LdBD(this._operation);
+    this._allInstructions[0x43] = new LdBE(this._operation);
     this._allInstructions[0x7F] = new LdAA(this._operation);
     this._allInstructions[0x78] = new LdAB(this._operation);
     this._allInstructions[0x79] = new LdAC(this._operation);
