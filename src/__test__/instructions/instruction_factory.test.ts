@@ -22,6 +22,7 @@ import { LdAD } from "vm/instructions/ld_r1_r2/ld_a_d";
 import { LdAE } from "vm/instructions/ld_r1_r2/ld_a_e";
 import { LdAH } from "vm/instructions/ld_r1_r2/ld_a_h";
 import { LdAL } from "vm/instructions/ld_r1_r2/ld_a_l";
+import { LdBB } from "vm/instructions/ld_r1_r2/ld_b_b";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -57,32 +58,39 @@ describe("instruction factory test", () => {
   });
 
   describe("LD r1, r2", () => {
-    test("LD A, A", () => {
-      expect(instructionFactory.create(0x7F)).toBeInstanceOf(LdAA);
-    });
+    describe("LD A, r2", () => {
+      test("LD A, A", () => {
+        expect(instructionFactory.create(0x7F)).toBeInstanceOf(LdAA);
+      });
 
-    test("LD A, B", () => {
-      expect(instructionFactory.create(0x78)).toBeInstanceOf(LdAB);
-    });
+      test("LD A, B", () => {
+        expect(instructionFactory.create(0x78)).toBeInstanceOf(LdAB);
+      });
 
-    test("LD A, C", () => {
-      expect(instructionFactory.create(0x79)).toBeInstanceOf(LdAC);
-    });
+      test("LD A, C", () => {
+        expect(instructionFactory.create(0x79)).toBeInstanceOf(LdAC);
+      });
 
-    test("LD A, D", () => {
-      expect(instructionFactory.create(0x7A)).toBeInstanceOf(LdAD);
-    });
+      test("LD A, D", () => {
+        expect(instructionFactory.create(0x7A)).toBeInstanceOf(LdAD);
+      });
 
-    test("LD A, E", () => {
-      expect(instructionFactory.create(0x7B)).toBeInstanceOf(LdAE);
-    });
+      test("LD A, E", () => {
+        expect(instructionFactory.create(0x7B)).toBeInstanceOf(LdAE);
+      });
 
-    test("LD A, H", () => {
-      expect(instructionFactory.create(0x7C)).toBeInstanceOf(LdAH);
-    });
+      test("LD A, H", () => {
+        expect(instructionFactory.create(0x7C)).toBeInstanceOf(LdAH);
+      });
 
-    test("LD A, L", () => {
-      expect(instructionFactory.create(0x7D)).toBeInstanceOf(LdAL);
+      test("LD A, L", () => {
+        expect(instructionFactory.create(0x7D)).toBeInstanceOf(LdAL);
+      });
+    });
+    describe("LD B, r2", () => {
+      test("LD B, B", () => {
+        expect(instructionFactory.create(0x40)).toBeInstanceOf(LdBB);
+      });
     });
   });
 
