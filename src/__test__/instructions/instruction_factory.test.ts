@@ -23,6 +23,7 @@ import { LdAE } from "vm/instructions/ld_r1_r2/ld_a_e";
 import { LdAH } from "vm/instructions/ld_r1_r2/ld_a_h";
 import { LdAL } from "vm/instructions/ld_r1_r2/ld_a_l";
 import { LdBB } from "vm/instructions/ld_r1_r2/ld_b_b";
+import { LdBC } from "vm/instructions/ld_r1_r2/ld_b_c";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -90,6 +91,9 @@ describe("instruction factory test", () => {
     describe("LD B, r2", () => {
       test("LD B, B", () => {
         expect(instructionFactory.create(0x40)).toBeInstanceOf(LdBB);
+      });
+      test("LD B, C", () => {
+        expect(instructionFactory.create(0x41)).toBeInstanceOf(LdBC);
       });
     });
   });
