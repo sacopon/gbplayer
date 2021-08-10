@@ -30,6 +30,13 @@ import { LdBH } from "vm/instructions/ld_r1_r2/ld_b_h";
 import { LdBL } from "vm/instructions/ld_r1_r2/ld_b_l";
 import { LdAAddrHl } from "vm/instructions/ld_r1_r2/ld_a_addr_hl";
 import { LdBAddrHl } from "vm/instructions/ld_r1_r2/ld_b_addr_hl";
+import { LdCB } from "vm/instructions/ld_r1_r2/ld_c_b";
+import { LdCC } from "vm/instructions/ld_r1_r2/ld_c_c";
+import { LdCD } from "vm/instructions/ld_r1_r2/ld_c_d";
+import { LdCE } from "vm/instructions/ld_r1_r2/ld_c_e";
+import { LdCH } from "vm/instructions/ld_r1_r2/ld_c_h";
+import { LdCL } from "vm/instructions/ld_r1_r2/ld_c_l";
+import { LdCAddrHl } from "vm/instructions/ld_r1_r2/ld_c_addr_hl";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -121,6 +128,36 @@ describe("instruction factory test", () => {
       });
     });
   });
+
+  describe("LD C, r2", () => {
+    test("LD C, B", () => {
+      expect(instructionFactory.create(0x48)).toBeInstanceOf(LdCB);
+    });
+
+    test("LD C, C", () => {
+      expect(instructionFactory.create(0x49)).toBeInstanceOf(LdCC);
+    });
+
+    test("LD C, D", () => {
+      expect(instructionFactory.create(0x4A)).toBeInstanceOf(LdCD);
+    });
+
+    test("LD C, E", () => {
+      expect(instructionFactory.create(0x4B)).toBeInstanceOf(LdCE);
+    });
+
+    test("LD C, H", () => {
+      expect(instructionFactory.create(0x4C)).toBeInstanceOf(LdCH);
+    });
+
+    test("LD C, L", () => {
+      expect(instructionFactory.create(0x4D)).toBeInstanceOf(LdCL);
+    });
+
+    test("LD C, (HL)", () => {
+      expect(instructionFactory.create(0x4E)).toBeInstanceOf(LdCAddrHl);
+    });
+});
 
   describe("LD A, (C)", () => {
     test("LD A, (C)", () => {

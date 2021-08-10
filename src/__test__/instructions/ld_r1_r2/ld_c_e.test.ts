@@ -1,9 +1,9 @@
 import { CpuOperation } from "vm/cpu_operation";
-import { LdBH } from "vm/instructions/ld_r1_r2/ld_b_h";
+import { LdCE } from "vm/instructions/ld_r1_r2/ld_c_e";
 import { Memory } from "vm/memory";
 import { RegisterSet } from "vm/register/register_set";
 
-describe("LD B, H test", () => {
+describe("LD C, E test", () => {
   let buffer: ArrayBuffer;
   let register: RegisterSet;
   let memory: Memory;
@@ -17,10 +17,10 @@ describe("LD B, H test", () => {
   });
 
   test("clone", () => {
-    const instruction = new LdBH(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
+    const instruction = new LdCE(new CpuOperation(register, new Memory(new Uint8Array(buffer))));
     const cloned = instruction.clone();
 
-    expect(cloned).toBeInstanceOf(LdBH);
+    expect(cloned).toBeInstanceOf(LdCE);
   });
   test("exec", () => {
     // レジスタにテスト用の初期値を設定
@@ -31,7 +31,7 @@ describe("LD B, H test", () => {
     register.SP = 0x99AA;
     const prevRegister = register.clone();
 
-    const instruction = new LdBH(new CpuOperation(register, memory));
+    const instruction = new LdCE(new CpuOperation(register, memory));
     instruction.fetch();
     const cycle = instruction.exec();
 
@@ -39,13 +39,12 @@ describe("LD B, H test", () => {
     expect(cycle).toBe(4);
     // 他のレジスタに影響を与えていないことの確認
     expect(register.AF).toBe(prevRegister.AF);
-    expect(register.C).toBe(prevRegister.C);
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
-    // B レジスタの内容が変わっていることの確認
-    expect(register.B).toBe(prevRegister.H);
-    expect(register.BC).toBe(0x7744);
+    // C レジスタの内容が変わっていることの確認
+    expect(register.C).toBe(prevRegister.E);
+    expect(register.BC).toBe(0x3366);
     // プログラムカウンタが進んでいることの確認
     expect(register.PC).toBe(prevRegister.PC + 1);
   });
