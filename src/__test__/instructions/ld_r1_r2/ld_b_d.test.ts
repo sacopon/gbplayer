@@ -43,7 +43,7 @@ describe("LD B, D test", () => {
     expect(register.DE).toBe(prevRegister.DE);
     expect(register.HL).toBe(prevRegister.HL);
     expect(register.SP).toBe(prevRegister.SP);
-    // A レジスタの内容が変わっていることの確認
+    // B レジスタの内容が変わっていることの確認
     expect(register.B).toBe(prevRegister.D);
     expect(register.BC).toBe(0x5544);
     // プログラムカウンタが進んでいることの確認
