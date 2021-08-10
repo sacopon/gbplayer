@@ -35,6 +35,7 @@ import { LdCC } from "vm/instructions/ld_r1_r2/ld_c_c";
 import { LdCD } from "vm/instructions/ld_r1_r2/ld_c_d";
 import { LdCE } from "vm/instructions/ld_r1_r2/ld_c_e";
 import { LdCH } from "vm/instructions/ld_r1_r2/ld_c_h";
+import { LdCL } from "vm/instructions/ld_r1_r2/ld_c_l";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -146,6 +147,10 @@ describe("instruction factory test", () => {
 
     test("LD C, H", () => {
       expect(instructionFactory.create(0x4C)).toBeInstanceOf(LdCH);
+    });
+
+    test("LD C, L", () => {
+      expect(instructionFactory.create(0x4D)).toBeInstanceOf(LdCL);
     });
   });
 
