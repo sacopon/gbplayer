@@ -40,6 +40,7 @@ import { LdCAddrHl } from "vm/instructions/ld_r1_r2/ld_c_addr_hl";
 import { LdDB } from "vm/instructions/ld_r1_r2/ld_d_b";
 import { LdDC } from "vm/instructions/ld_r1_r2/ld_d_c";
 import { LdDD } from "vm/instructions/ld_r1_r2/ld_d_d";
+import { LdDE } from "vm/instructions/ld_r1_r2/ld_d_e";
 
 describe("instruction factory test", () => {
   let instructionFactory: InstructionFactory;
@@ -171,6 +172,9 @@ describe("instruction factory test", () => {
     });
     test("LD D, D", () => {
       expect(instructionFactory.create(0x52)).toBeInstanceOf(LdDD);
+    });
+    test("LD D, E", () => {
+      expect(instructionFactory.create(0x53)).toBeInstanceOf(LdDE);
     });
   });
 
