@@ -40,6 +40,13 @@ import { LdCE } from "./ld_r1_r2/ld_c_e";
 import { LdCH } from "./ld_r1_r2/ld_c_h";
 import { LdCL } from "./ld_r1_r2/ld_c_l";
 import { LdCAddrHl } from "./ld_r1_r2/ld_c_addr_hl";
+import { LdDB } from "./ld_r1_r2/ld_d_b";
+import { LdDC } from "./ld_r1_r2/ld_d_c";
+import { LdDD } from "./ld_r1_r2/ld_d_d";
+import { LdDE } from "./ld_r1_r2/ld_d_e";
+import { LdDH } from "./ld_r1_r2/ld_d_h";
+import { LdDL } from "./ld_r1_r2/ld_d_l";
+import { LdDAddrHl } from "./ld_r1_r2/ld_d_addr_hl";
 
 export class InstructionFactory {
   private _operation: CpuOperation;
@@ -74,6 +81,13 @@ export class InstructionFactory {
     this._allInstructions[0x4C] = new LdCH(this._operation);
     this._allInstructions[0x4D] = new LdCL(this._operation);
     this._allInstructions[0x4E] = new LdCAddrHl(this._operation);
+    this._allInstructions[0x50] = new LdDB(this._operation);
+    this._allInstructions[0x51] = new LdDC(this._operation);
+    this._allInstructions[0x52] = new LdDD(this._operation);
+    this._allInstructions[0x53] = new LdDE(this._operation);
+    this._allInstructions[0x54] = new LdDH(this._operation);
+    this._allInstructions[0x55] = new LdDL(this._operation);
+    this._allInstructions[0x56] = new LdDAddrHl(this._operation);
     this._allInstructions[0x7F] = new LdAA(this._operation);
     this._allInstructions[0x78] = new LdAB(this._operation);
     this._allInstructions[0x79] = new LdAC(this._operation);
