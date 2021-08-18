@@ -44,6 +44,7 @@ import { LdDB } from "./ld_r1_r2/ld_d_b";
 import { LdDC } from "./ld_r1_r2/ld_d_c";
 import { LdDD } from "./ld_r1_r2/ld_d_d";
 import { LdDE } from "./ld_r1_r2/ld_d_e";
+import { LdEB } from "./ld_r1_r2/ld_e_b";
 import { LdDH } from "./ld_r1_r2/ld_d_h";
 import { LdDL } from "./ld_r1_r2/ld_d_l";
 import { LdDAddrHl } from "./ld_r1_r2/ld_d_addr_hl";
@@ -88,6 +89,7 @@ export class InstructionFactory {
     this._allInstructions[0x54] = new LdDH(this._operation);
     this._allInstructions[0x55] = new LdDL(this._operation);
     this._allInstructions[0x56] = new LdDAddrHl(this._operation);
+    this._allInstructions[0x58] = new LdEB(this._operation);
     this._allInstructions[0x7F] = new LdAA(this._operation);
     this._allInstructions[0x78] = new LdAB(this._operation);
     this._allInstructions[0x79] = new LdAC(this._operation);
